@@ -14,20 +14,21 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "Capital Core Finance - Business Loan Consultants",
+  title: "Capital Core Finance - Complete Financing Solutions",
   description:
-    "Expert business loan consulting & financial advisory. 25+ years experience, 100+ clients served. Get pre-qualified today.",
-  keywords: "business loans, loan restructuring, corporate finance, Bengaluru, loan consultants",
+    "Expert financing consultants for business loans, housing, education, machinery, and project loans. 18+ years experience, 500+ clients. Get pre-qualified today.",
+  keywords:
+    "business loans, housing loans, project loans, education loans, machinery loans, loan consultants, Bengaluru, financial advisory",
   authors: [{ name: "Capital Core Finance" }],
   openGraph: {
-    title: "Capital Core Finance - Business Loan Consultants",
-    description: "Expert business loan consulting & financial advisory. 25+ years experience, 100+ clients served.",
+    title: "Capital Core Finance - Complete Financing Solutions",
+    description: "Expert financing solutions for every dream. 18+ years experience, 500+ clients served.",
     type: "website",
     locale: "en_IN",
   },
   robots: "index, follow",
   canonical: "https://capitalcorefinance.com",
-    generator: 'v0.app'
+  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -45,7 +46,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               name: "Capital Core Finance",
-              description: "Business loan consultants with 25+ years experience",
+              description: "Complete financing solutions for business, housing, education, and machinery loans",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Singanayakanahalli",

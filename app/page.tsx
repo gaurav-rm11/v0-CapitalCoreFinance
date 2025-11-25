@@ -1,4 +1,5 @@
 import HeroSection from "@/components/home/hero-section"
+import EMICalculator from "@/components/home/emi-calculator"
 import ServiceCards from "@/components/home/service-cards"
 import WhyChooseUs from "@/components/home/why-choose-us"
 import HowItWorks from "@/components/home/how-it-works"
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <main>
       <HeroSection />
+      <EMICalculator />
       <ServiceCards />
       <WhyChooseUs />
       <HowItWorks />

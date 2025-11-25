@@ -1,30 +1,30 @@
 import Link from "next/link"
-import { ArrowRight, Briefcase, TrendingUp, Building2, FileCheck } from "lucide-react"
+import { ArrowRight, Building2, Home, GraduationCap, Truck } from "lucide-react"
 
 const services = [
   {
-    icon: Briefcase,
-    title: "Business Loans",
-    description: "Get your loan approved quickly with expert guidance",
+    icon: Building2,
+    title: "Project & Business Loans",
+    description: "Construction, commercial projects, and business expansion financing",
     href: "/services/business-loans",
   },
   {
-    icon: TrendingUp,
-    title: "Loan Restructuring",
-    description: "Fix loan issues, improve CIBIL, and resolve NPA cases",
-    href: "/services/restructuring",
+    icon: Home,
+    title: "Housing Loans",
+    description: "Your dream home made affordable with flexible financing options",
+    href: "/services/housing-loans",
   },
   {
-    icon: Building2,
-    title: "Corporate Finance",
-    description: "End-to-end finance strategy for business growth",
-    href: "/services/corporate-finance",
+    icon: Truck,
+    title: "Machinery & Equipment Loans",
+    description: "Inventory, machinery, and equipment financing for growth",
+    href: "/services/machinery-loans",
   },
   {
-    icon: FileCheck,
-    title: "Documentation",
-    description: "Hassle-free paperwork & bank coordination",
-    href: "/services/prequal",
+    icon: GraduationCap,
+    title: "Education Loans",
+    description: "Hassle-free education financing for your academic dreams",
+    href: "/services/education-loans",
   },
 ]
 
@@ -33,10 +33,10 @@ export default function ServiceCards() {
     <section className="py-16 md:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Core Services</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Core Loan Products</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We offer end-to-end solutions for business financing — from securing new loans to resolving existing
-            challenges.
+            We offer comprehensive financing solutions across multiple loan categories — tailored to your unique needs
+            and aspirations.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export default function ServiceCards() {
             href="/services"
             className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
           >
-            View All Services
+            View All Loan Products
           </Link>
         </div>
       </div>

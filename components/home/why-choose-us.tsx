@@ -3,15 +3,15 @@ import { CheckCircle } from "lucide-react"
 const reasons = [
   {
     title: "Experience That Matters",
-    description: "25+ years of combined financial expertise in business lending",
+    description: "18+ years of combined financial expertise across multiple loan categories",
   },
   {
     title: "Proven Results",
-    description: "100+ businesses successfully funded with 95% approval rate",
+    description: "500+ clients successfully funded with 95% approval rate",
   },
   {
     title: "Tailored Solutions",
-    description: "Customized guidance designed for your unique business needs",
+    description: "Customized guidance designed for your unique financing needs",
   },
   {
     title: "End-to-End Support",
@@ -24,7 +24,7 @@ export default function WhyChooseUs() {
     <section className="py-16 md:py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Why 100+ Businesses Trust Capital Core</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Why 500+ Clients Trust Capital Core</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Our commitment to excellence and client success drives everything we do.
           </p>
