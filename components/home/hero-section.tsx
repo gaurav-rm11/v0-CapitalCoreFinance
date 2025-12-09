@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ArrowRight, Sparkles } from "lucide-react"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
@@ -15,10 +16,7 @@ const taglines = ["Empowering Dreams", "Building Futures", "Funding Growth", "En
 export default function HeroSection() {
   const [currentTagline, setCurrentTagline] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
-  const headlineRef = useRef<HTMLHeadingElement>(null)
-  const subtextRef = useRef<HTMLParagraphElement>(null)
-  const ctaRef = useRef<HTMLDivElement>(null)
-  const badgesRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,35 +25,16 @@ export default function HeroSection() {
     return () => clearInterval(interval)
   }, [])
 
-  // GSAP animations on mount
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Staggered entrance animation
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
-
-      tl.fromTo(headlineRef.current, { opacity: 0, y: 60, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 1.2 })
-        .fromTo(subtextRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8 }, "-=0.6")
-        .fromTo(
-          ctaRef.current?.children || [],
-          { opacity: 0, y: 30, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, stagger: 0.15, duration: 0.6 },
-          "-=0.4",
-        )
-        .fromTo(
-          badgesRef.current?.children || [],
-          { opacity: 0, y: 20, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.5 },
-          "-=0.3",
-        )
-
       // Parallax effect on scroll
-      gsap.to(".hero-bg-circle", {
-        y: -100,
+      gsap.to(".hero-orb", {
+        y: -150,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: 1,
+          scrub: 1.5,
         },
       })
     }, sectionRef)
@@ -64,35 +43,59 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative py-24 md:py-36 bg-gradient-to-br from-primary via-primary/95 to-primary/85 text-primary-foreground overflow-hidden"
-    >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="hero-bg-circle absolute -top-20 -left-20 w-96 h-96 bg-primary-foreground/5 rounded-full blur-3xl" />
-        <div className="hero-bg-circle absolute top-1/2 -right-32 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl" />
-        <div className="hero-bg-circle absolute -bottom-32 left-1/3 w-80 h-80 bg-primary-foreground/5 rounded-full blur-3xl" />
+    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Premium gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/90" />
 
-        {/* Grid pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
+      {/* Animated orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="hero-orb absolute -top-40 -left-40 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px] animate-pulse-glow" />
+        <div className="hero-orb absolute top-1/3 -right-40 w-[500px] h-[500px] bg-primary-foreground/10 rounded-full blur-[100px]" />
+        <div className="hero-orb absolute -bottom-60 left-1/4 w-[700px] h-[700px] bg-accent/10 rounded-full blur-[140px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Animated Tagline Badge */}
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: "80px 80px",
+        }}
+      />
+
+      {/* Floating particles */}
+      <div className="absolute inset-0">
+        {[...Array(6)].map((_, i) => (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="inline-flex items-center gap-3 bg-primary-foreground/10 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 border border-primary-foreground/20"
+            key={i}
+            className="absolute w-2 h-2 bg-accent/40 rounded-full"
+            style={{
+              left: `${15 + i * 15}%`,
+              top: `${20 + (i % 3) * 25}%`,
+            }}
+            animate={{
+              y: [-20, 20, -20],
+              opacity: [0.2, 0.6, 0.2],
+            }}
+            transition={{
+              duration: 4 + i,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+              delay: i * 0.5,
+            }}
+          />
+        ))}
+      </div>
+
+      <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Animated Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-3 glass-dark px-5 py-2.5 rounded-full mb-8"
           >
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
@@ -105,7 +108,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4 }}
-                className="text-sm font-semibold tracking-wide"
+                className="text-sm font-semibold tracking-wide text-primary-foreground"
               >
                 {taglines[currentTagline]}
               </motion.span>
@@ -113,49 +116,65 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Headline */}
-          <h1
-            ref={headlineRef}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight text-balance"
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.05] tracking-tight text-primary-foreground"
           >
-            Complete Financing Solutions for{" "}
+            Complete Financing <br className="hidden sm:block" />
+            Solutions for{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-accent">Every Dream</span>
               <motion.span
-                className="absolute -bottom-2 left-0 w-full h-3 bg-accent/30 rounded-full -z-0"
-                initial={{ scaleX: 0 }}
+                className="absolute -bottom-2 left-0 w-full h-3 bg-accent/30 rounded-full"
+                initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
+                transition={{ delay: 1.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               />
             </span>
-          </h1>
+          </motion.h1>
 
           {/* Subheadline */}
-          <p
-            ref={subtextRef}
-            className="text-lg md:text-xl lg:text-2xl opacity-90 mb-10 leading-relaxed max-w-3xl mx-auto text-balance font-light"
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="text-lg md:text-xl lg:text-2xl text-primary-foreground/80 mb-12 leading-relaxed max-w-3xl mx-auto font-light"
           >
             38+ years of combined expertise helping 500+ businesses and individuals achieve their financial goals
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
             <Link
               href="/contact"
-              className="group relative px-8 py-4 bg-accent text-accent-foreground rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-accent/25"
+              className="group premium-btn-gold px-8 py-4 text-accent-foreground rounded-2xl font-semibold inline-flex items-center justify-center gap-3"
             >
-              <span className="relative z-10">Get Pre-Qualified</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent/80 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Sparkles className="w-5 h-5" />
+              Get Pre-Qualified
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/how-it-works"
-              className="group px-8 py-4 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground rounded-xl font-semibold border border-primary-foreground/20 hover:bg-primary-foreground/20 transition-all duration-300"
+              className="group px-8 py-4 glass-dark text-primary-foreground rounded-2xl font-semibold inline-flex items-center justify-center gap-2 hover:bg-white/20 transition-all"
             >
               Learn Our Process
             </Link>
-          </div>
+          </motion.div>
 
           {/* Trust Badges */}
-          <div ref={badgesRef} className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
+          >
             {[
               { value: "500+", label: "Clients Served" },
               { value: "38+", label: "Years Experience" },
@@ -165,16 +184,21 @@ export default function HeroSection() {
               <motion.div
                 key={badge.label}
                 whileHover={{ scale: 1.05, y: -5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="group relative bg-primary-foreground/5 backdrop-blur-md p-5 rounded-2xl border border-primary-foreground/10 hover:bg-primary-foreground/10 hover:border-primary-foreground/20 transition-all duration-300"
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="glass-dark p-6 rounded-2xl group cursor-default"
               >
-                <div className="font-bold text-2xl md:text-3xl mb-1">{badge.value}</div>
-                <div className="text-sm opacity-70">{badge.label}</div>
+                <div className="font-bold text-2xl md:text-3xl mb-1 text-primary-foreground group-hover:text-accent transition-colors">
+                  {badge.value}
+                </div>
+                <div className="text-sm text-primary-foreground/60">{badge.label}</div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
+
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   )
 }

@@ -1,11 +1,21 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { Menu, X } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Menu, X, ChevronDown } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -17,65 +27,126 @@ export default function Navigation() {
   ]
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? "glass shadow-lg shadow-primary/5" : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">C</span>
+          <Link href="/" className="flex items-center gap-3 group">
+            <motion.div
+              whileHover={{ scale: 1.05, rotate: -5 }}
+              transition={{ type: "spring", stiffness: 400 }}
+              className="relative w-11 h-11 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20"
+            >
+              <span className="text-primary-foreground font-bold text-xl">C</span>
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent" />
+            </motion.div>
+            <div className="hidden sm:block">
+              <span className="font-bold text-lg text-foreground tracking-tight">Capital Core</span>
+              <span className="block text-xs text-muted-foreground -mt-0.5 tracking-wide">Finance Consultants</span>
             </div>
-            <span className="font-bold text-lg hidden sm:inline text-foreground">Capital Core Finance</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
+          <div className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link, index) => (
+              <motion.div
                 key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
               >
-                {link.label}
-              </Link>
+                <Link
+                  href={link.href}
+                  className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+                >
+                  {link.label}
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-accent rounded-full group-hover:w-4/5 transition-all duration-300" />
+                </Link>
+              </motion.div>
             ))}
-            <Link
-              href="/contact"
-              className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
+          </div>
+
+          {/* CTA Button */}
+          <div className="hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
             >
-              Get Pre-Qualified
-            </Link>
+              <Link
+                href="/contact"
+                className="premium-btn px-6 py-2.5 text-primary-foreground rounded-xl font-semibold text-sm inline-flex items-center gap-2"
+              >
+                Get Pre-Qualified
+                <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile Menu Button */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2" aria-label="Toggle menu">
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden p-2.5 rounded-xl hover:bg-muted transition-colors"
+            aria-label="Toggle menu"
+          >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden pb-4 space-y-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block px-4 py-2 hover:bg-muted rounded-lg transition-colors text-foreground"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link
-              href="/contact"
-              className="block px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
-              onClick={() => setIsOpen(false)}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden overflow-hidden"
             >
-              Get Pre-Qualified
-            </Link>
-          </div>
-        )}
+              <div className="py-4 space-y-1 border-t border-border/50">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className="block px-4 py-3 hover:bg-muted rounded-xl transition-colors text-foreground font-medium"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="pt-2"
+                >
+                  <Link
+                    href="/contact"
+                    className="block px-4 py-3 premium-btn text-primary-foreground rounded-xl font-semibold text-center"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Get Pre-Qualified
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   )
 }

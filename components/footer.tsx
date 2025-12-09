@@ -1,109 +1,159 @@
+"use client"
+
 import Link from "next/link"
-import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react"
+import { motion } from "framer-motion"
+import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, ArrowUpRight } from "lucide-react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
+  const quickLinks = [
+    { label: "About Us", href: "/about" },
+    { label: "How It Works", href: "/how-it-works" },
+    { label: "Testimonials", href: "/testimonials" },
+    { label: "Resources", href: "/resources" },
+  ]
+
+  const services = [
+    { label: "Business Loans", href: "/services/business-loans" },
+    { label: "Project Loans", href: "/services/project-loans" },
+    { label: "Housing Loans", href: "/services/housing-loans" },
+    { label: "Education Loans", href: "/services/education-loans" },
+  ]
+
   return (
-    <footer className="bg-card border-t border-border mt-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Company Info */}
+    <footer className="relative bg-gradient-to-b from-background to-secondary/50 border-t border-border">
+      {/* Top CTA Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="premium-card p-8 md:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6"
+        >
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold">C</span>
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Ready to get started?</h3>
+            <p className="text-muted-foreground">Get pre-qualified for your loan in minutes</p>
+          </div>
+          <Link
+            href="/contact"
+            className="premium-btn-gold px-8 py-4 text-accent-foreground rounded-2xl font-semibold inline-flex items-center gap-2 whitespace-nowrap"
+          >
+            Get Pre-Qualified
+            <ArrowUpRight className="w-5 h-5" />
+          </Link>
+        </motion.div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          {/* Company Info */}
+          <div className="lg:col-span-1">
+            <Link href="/" className="flex items-center gap-3 mb-6">
+              <div className="w-11 h-11 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+                <span className="text-primary-foreground font-bold text-xl">C</span>
               </div>
-              <h3 className="font-bold">Capital Core Finance</h3>
+              <div>
+                <span className="font-bold text-lg text-foreground tracking-tight">Capital Core</span>
+                <span className="block text-xs text-muted-foreground -mt-0.5">Finance Consultants</span>
+              </div>
+            </Link>
+            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+              Empowering businesses and individuals with smarter financing solutions since 2020. Your trusted partner
+              for all loan needs.
+            </p>
+            <div className="flex gap-3">
+              {[
+                { icon: Linkedin, href: "#" },
+                { icon: Twitter, href: "#" },
+                { icon: Facebook, href: "#" },
+                { icon: Instagram, href: "#" },
+              ].map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  className="w-10 h-10 bg-muted rounded-xl flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                >
+                  <social.icon size={18} />
+                </a>
+              ))}
             </div>
-            <p className="text-sm text-muted-foreground">Empowering businesses with smarter financing since 2020.</p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="/case-studies" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Case Studies
-                </Link>
-              </li>
-              <li>
-                <Link href="/resources" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Resources
-                </Link>
-              </li>
+            <h4 className="font-semibold text-foreground mb-6">Company</h4>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center gap-1 group"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/services/business-loans"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Business Loans
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/restructuring"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Loan Restructuring
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/corporate-finance"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Corporate Advisory
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/prequal"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Documentation
-                </Link>
-              </li>
+            <h4 className="font-semibold text-foreground mb-6">Services</h4>
+            <ul className="space-y-3">
+              {services.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center gap-1 group"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
-            <ul className="space-y-3 text-sm">
+            <h4 className="font-semibold text-foreground mb-6">Contact Us</h4>
+            <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin size={16} className="mt-0.5 flex-shrink-0 text-accent" />
-                <span className="text-muted-foreground">Yelahanka, Bengaluru, Karnataka</span>
+                <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <MapPin size={18} className="text-accent" />
+                </div>
+                <div>
+                  <span className="text-muted-foreground text-sm">Yelahanka, Bengaluru, Karnataka</span>
+                </div>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone size={16} className="text-accent" />
-                <a href="tel:+919876543210" className="text-muted-foreground hover:text-foreground transition-colors">
-                  +91-XXXXXXXXXX
-                </a>
+              <li className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Phone size={18} className="text-accent" />
+                </div>
+                <div className="space-y-1">
+                  <a
+                    href="tel:+919975985314"
+                    className="text-muted-foreground hover:text-foreground transition-colors text-sm block"
+                  >
+                    +91 99759 85314
+                  </a>
+                  <a
+                    href="tel:+919902545483"
+                    className="text-muted-foreground hover:text-foreground transition-colors text-sm block"
+                  >
+                    +91 99025 45483
+                  </a>
+                </div>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail size={16} className="text-accent" />
+              <li className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Mail size={18} className="text-accent" />
+                </div>
                 <a
                   href="mailto:info@capitalcore.com"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors text-sm"
                 >
                   info@capitalcore.com
                 </a>
@@ -112,13 +162,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-border my-8"></div>
-
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">© {currentYear} Capital Core Finance. All rights reserved.</p>
-          <div className="flex gap-4">
+          <div className="flex gap-6">
             <Link
               href="/privacy-policy"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -128,22 +175,6 @@ export default function Footer() {
             <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Terms of Service
             </Link>
-          </div>
-          <div className="flex gap-3">
-            <a
-              href="https://linkedin.com"
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={18} />
-            </a>
-            <a
-              href="https://twitter.com"
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="Twitter"
-            >
-              <Twitter size={18} />
-            </a>
           </div>
         </div>
       </div>

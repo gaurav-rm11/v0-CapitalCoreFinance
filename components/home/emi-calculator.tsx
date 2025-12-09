@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useMemo, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { gsap } from "gsap"
@@ -14,8 +13,8 @@ if (typeof window !== "undefined") {
 }
 
 export default function EMICalculator() {
-  const [loanAmount, setLoanAmount] = useState(259000)
-  const [interestRate, setInterestRate] = useState(11)
+  const [loanAmount, setLoanAmount] = useState(2500000)
+  const [interestRate, setInterestRate] = useState(10.5)
   const [tenureMonths, setTenureMonths] = useState(60)
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -108,9 +107,10 @@ export default function EMICalculator() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 bg-secondary/30 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl translate-y-1/2" />
+    <section ref={sectionRef} className="py-24 md:py-32 section-gradient-alt relative overflow-hidden">
+      {/* Decorative orbs */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] translate-y-1/2" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div
@@ -119,11 +119,13 @@ export default function EMICalculator() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm tracking-wider uppercase mb-4 bg-primary/10 px-4 py-2 rounded-full">
+          <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm tracking-wider uppercase mb-4 bg-primary/5 px-5 py-2.5 rounded-full border border-primary/10">
             <Calculator size={18} />
             Financial Tool
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-foreground">EMI Calculator</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-foreground">
+            EMI <span className="gradient-text">Calculator</span>
+          </h2>
           <p className="text-lg text-muted-foreground">
             Calculate your monthly EMI instantly with our smart calculator
           </p>
@@ -137,24 +139,24 @@ export default function EMICalculator() {
           className="grid lg:grid-cols-2 gap-8 lg:gap-12"
         >
           {/* Calculator Controls */}
-          <div className="space-y-8 bg-card p-8 lg:p-10 rounded-3xl border border-border shadow-xl">
+          <div className="premium-card p-8 lg:p-10 rounded-3xl space-y-8">
             {/* Loan Amount */}
             <div>
               <label className="flex justify-between items-center mb-4">
-                <span className="text-sm font-medium text-foreground">Loan Amount</span>
-                <div className="flex items-center gap-1 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20">
-                  <span className="text-primary font-medium">₹</span>
+                <span className="text-sm font-semibold text-foreground">Loan Amount</span>
+                <div className="flex items-center gap-1 bg-gradient-to-r from-accent/10 to-accent/5 px-4 py-2.5 rounded-xl border border-accent/20">
+                  <span className="text-accent font-semibold">₹</span>
                   <input
                     type="text"
                     value={loanAmount.toLocaleString("en-IN")}
                     onChange={handleLoanAmountInput}
-                    className="w-28 bg-transparent text-primary font-bold text-lg text-right focus:outline-none"
+                    className="w-28 bg-transparent text-accent font-bold text-lg text-right focus:outline-none"
                   />
                 </div>
               </label>
               <div className="relative h-3 bg-muted rounded-full overflow-hidden">
                 <div
-                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-150"
+                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-200"
                   style={{
                     width: `${loanProgress}%`,
                     background: "linear-gradient(90deg, #D4A853, #E8C078)",
@@ -167,14 +169,15 @@ export default function EMICalculator() {
                   step="10000"
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 w-full h-full cursor-pointer"
+                  style={{ opacity: 0 }}
                 />
                 <div
-                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-accent rounded-full shadow-lg border-2 border-white pointer-events-none transition-all duration-150"
+                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-accent to-accent/80 rounded-full shadow-lg shadow-accent/30 border-[3px] border-white pointer-events-none transition-all duration-200"
                   style={{ left: `calc(${loanProgress}% - 12px)` }}
                 />
               </div>
-              <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <div className="flex justify-between text-xs text-muted-foreground mt-3 font-medium">
                 <span>₹1 Lakh</span>
                 <span>₹1 Crore</span>
               </div>
@@ -183,21 +186,21 @@ export default function EMICalculator() {
             {/* Interest Rate */}
             <div>
               <label className="flex justify-between items-center mb-4">
-                <span className="text-sm font-medium text-foreground">Rate of Interest (p.a)</span>
-                <div className="flex items-center gap-1 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20">
+                <span className="text-sm font-semibold text-foreground">Rate of Interest (p.a)</span>
+                <div className="flex items-center gap-1 bg-gradient-to-r from-accent/10 to-accent/5 px-4 py-2.5 rounded-xl border border-accent/20">
                   <input
                     type="number"
                     step="0.1"
                     value={interestRate}
                     onChange={handleInterestInput}
-                    className="w-16 bg-transparent text-primary font-bold text-lg text-right focus:outline-none"
+                    className="w-16 bg-transparent text-accent font-bold text-lg text-right focus:outline-none"
                   />
-                  <span className="text-primary font-medium">%</span>
+                  <span className="text-accent font-semibold">%</span>
                 </div>
               </label>
               <div className="relative h-3 bg-muted rounded-full overflow-hidden">
                 <div
-                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-150"
+                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-200"
                   style={{
                     width: `${interestProgress}%`,
                     background: "linear-gradient(90deg, #D4A853, #E8C078)",
@@ -210,51 +213,52 @@ export default function EMICalculator() {
                   step="0.1"
                   value={interestRate}
                   onChange={(e) => setInterestRate(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 w-full h-full cursor-pointer"
+                  style={{ opacity: 0 }}
                 />
                 <div
-                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-accent rounded-full shadow-lg border-2 border-white pointer-events-none transition-all duration-150"
+                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-accent to-accent/80 rounded-full shadow-lg shadow-accent/30 border-[3px] border-white pointer-events-none transition-all duration-200"
                   style={{ left: `calc(${interestProgress}% - 12px)` }}
                 />
               </div>
-              <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <div className="flex justify-between text-xs text-muted-foreground mt-3 font-medium">
                 <span>5%</span>
                 <span>20%</span>
               </div>
             </div>
 
-            {/* Loan Tenure - Years & Months */}
+            {/* Loan Tenure */}
             <div>
               <label className="flex justify-between items-center mb-4">
-                <span className="text-sm font-medium text-foreground">Loan Tenure</span>
+                <span className="text-sm font-semibold text-foreground">Loan Tenure</span>
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1 bg-primary/10 px-3 py-2 rounded-lg border border-primary/20">
+                  <div className="flex items-center gap-1 bg-gradient-to-r from-accent/10 to-accent/5 px-3 py-2.5 rounded-xl border border-accent/20">
                     <input
                       type="number"
                       min="0"
                       max="30"
                       value={tenureYears}
                       onChange={handleTenureYearsInput}
-                      className="w-10 bg-transparent text-primary font-bold text-lg text-right focus:outline-none"
+                      className="w-10 bg-transparent text-accent font-bold text-lg text-right focus:outline-none"
                     />
-                    <span className="text-primary font-medium text-sm">Yr</span>
+                    <span className="text-accent font-semibold text-sm">Yr</span>
                   </div>
-                  <div className="flex items-center gap-1 bg-primary/10 px-3 py-2 rounded-lg border border-primary/20">
+                  <div className="flex items-center gap-1 bg-gradient-to-r from-accent/10 to-accent/5 px-3 py-2.5 rounded-xl border border-accent/20">
                     <input
                       type="number"
                       min="0"
                       max="11"
                       value={tenureRemainingMonths}
                       onChange={handleTenureMonthsInput}
-                      className="w-10 bg-transparent text-primary font-bold text-lg text-right focus:outline-none"
+                      className="w-10 bg-transparent text-accent font-bold text-lg text-right focus:outline-none"
                     />
-                    <span className="text-primary font-medium text-sm">Mo</span>
+                    <span className="text-accent font-semibold text-sm">Mo</span>
                   </div>
                 </div>
               </label>
               <div className="relative h-3 bg-muted rounded-full overflow-hidden">
                 <div
-                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-150"
+                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-200"
                   style={{
                     width: `${tenureProgress}%`,
                     background: "linear-gradient(90deg, #D4A853, #E8C078)",
@@ -267,14 +271,15 @@ export default function EMICalculator() {
                   step="1"
                   value={tenureMonths}
                   onChange={(e) => setTenureMonths(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 w-full h-full cursor-pointer"
+                  style={{ opacity: 0 }}
                 />
                 <div
-                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-accent rounded-full shadow-lg border-2 border-white pointer-events-none transition-all duration-150"
+                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-accent to-accent/80 rounded-full shadow-lg shadow-accent/30 border-[3px] border-white pointer-events-none transition-all duration-200"
                   style={{ left: `calc(${tenureProgress}% - 12px)` }}
                 />
               </div>
-              <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <div className="flex justify-between text-xs text-muted-foreground mt-3 font-medium">
                 <span>1 Year</span>
                 <span>30 Years</span>
               </div>
@@ -283,12 +288,12 @@ export default function EMICalculator() {
             {/* Results */}
             <div className="space-y-4 pt-6 border-t border-border">
               <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">Monthly EMI</span>
+                <span className="text-muted-foreground font-medium">Monthly EMI</span>
                 <motion.span
                   key={calculations.monthlyEMI}
-                  initial={{ scale: 1.1 }}
-                  animate={{ scale: 1 }}
-                  className="font-bold text-2xl text-primary"
+                  initial={{ scale: 1.1, opacity: 0.5 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="font-bold text-2xl gradient-text"
                 >
                   {formatCurrency(calculations.monthlyEMI)}
                 </motion.span>
@@ -301,7 +306,7 @@ export default function EMICalculator() {
                 <span className="text-muted-foreground">Total Interest</span>
                 <span className="font-semibold text-accent">{formatCurrency(calculations.totalInterest)}</span>
               </div>
-              <div className="flex justify-between pt-4 border-t border-border bg-primary/5 -mx-8 lg:-mx-10 px-8 lg:px-10 py-4 -mb-8 lg:-mb-10 rounded-b-3xl">
+              <div className="flex justify-between items-center pt-4 mt-4 bg-gradient-to-r from-primary/5 to-accent/5 -mx-8 lg:-mx-10 px-8 lg:px-10 py-5 -mb-8 lg:-mb-10 rounded-b-3xl border-t border-primary/10">
                 <span className="font-semibold text-foreground">Total Amount Payable</span>
                 <span className="font-bold text-xl text-primary">{formatCurrency(calculations.totalAmount)}</span>
               </div>
@@ -309,41 +314,43 @@ export default function EMICalculator() {
           </div>
 
           {/* Pie Chart */}
-          <div className="flex flex-col items-center justify-center bg-card p-8 lg:p-10 rounded-3xl border border-border shadow-xl">
-            <ResponsiveContainer width="100%" height={280}>
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={85}
-                  outerRadius={130}
-                  paddingAngle={3}
-                  dataKey="value"
-                  strokeWidth={0}
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-
-            <div className="text-center -mt-44 mb-32">
-              <p className="text-sm text-muted-foreground">Total Payable</p>
-              <p className="text-2xl font-bold text-foreground">{formatCurrency(calculations.totalAmount)}</p>
+          <div className="premium-card p-8 lg:p-10 rounded-3xl flex flex-col items-center justify-center">
+            <div className="w-full max-w-[300px] mx-auto">
+              <ResponsiveContainer width="100%" height={280}>
+                <PieChart>
+                  <Pie
+                    data={chartData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={80}
+                    outerRadius={120}
+                    paddingAngle={4}
+                    dataKey="value"
+                    strokeWidth={0}
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
             </div>
 
-            <div className="flex gap-8 justify-center">
+            <div className="text-center -mt-40 mb-28">
+              <p className="text-sm text-muted-foreground mb-1">Total Payable</p>
+              <p className="text-2xl font-bold gradient-text">{formatCurrency(calculations.totalAmount)}</p>
+            </div>
+
+            <div className="flex gap-10 justify-center">
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: "#002D62" }} />
+                <div className="w-4 h-4 rounded-full bg-primary shadow-lg shadow-primary/30" />
                 <div>
                   <p className="text-sm text-muted-foreground">Principal</p>
                   <p className="font-semibold text-foreground">{formatCurrency(calculations.principal)}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: "#D4A853" }} />
+                <div className="w-4 h-4 rounded-full bg-accent shadow-lg shadow-accent/30" />
                 <div>
                   <p className="text-sm text-muted-foreground">Interest</p>
                   <p className="font-semibold text-foreground">{formatCurrency(calculations.totalInterest)}</p>
