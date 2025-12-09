@@ -22,6 +22,10 @@ export default function EMICalculator() {
   const tenureYears = Math.floor(tenureMonths / 12)
   const tenureRemainingMonths = tenureMonths % 12
 
+  const loanProgress = ((loanAmount - 100000) / (10000000 - 100000)) * 100
+  const interestProgress = ((interestRate - 5) / (20 - 5)) * 100
+  const tenureProgress = ((tenureMonths - 12) / (360 - 12)) * 100
+
   const calculations = useMemo(() => {
     const principal = loanAmount
     const monthlyRate = interestRate / 12 / 100
@@ -47,8 +51,8 @@ export default function EMICalculator() {
   }, [loanAmount, interestRate, tenureMonths])
 
   const chartData = [
-    { name: "Principal", value: calculations.principal, color: "#002D62" }, // Navy primary
-    { name: "Interest", value: calculations.totalInterest, color: "#D4A853" }, // Gold accent
+    { name: "Principal", value: calculations.principal, color: "#002D62" },
+    { name: "Interest", value: calculations.totalInterest, color: "#D4A853" },
   ]
 
   const formatCurrency = (value: number) => `₹${value.toLocaleString("en-IN")}`
@@ -148,15 +152,28 @@ export default function EMICalculator() {
                   />
                 </div>
               </label>
-              <input
-                type="range"
-                min="100000"
-                max="10000000"
-                step="10000"
-                value={loanAmount}
-                onChange={(e) => setLoanAmount(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary-foreground"
-              />
+              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+                <div
+                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-150"
+                  style={{
+                    width: `${loanProgress}%`,
+                    background: "linear-gradient(90deg, #D4A853, #E8C078)",
+                  }}
+                />
+                <input
+                  type="range"
+                  min="100000"
+                  max="10000000"
+                  step="10000"
+                  value={loanAmount}
+                  onChange={(e) => setLoanAmount(Number(e.target.value))}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-accent rounded-full shadow-lg border-2 border-white pointer-events-none transition-all duration-150"
+                  style={{ left: `calc(${loanProgress}% - 12px)` }}
+                />
+              </div>
               <div className="flex justify-between text-xs text-muted-foreground mt-2">
                 <span>₹1 Lakh</span>
                 <span>₹1 Crore</span>
@@ -178,15 +195,28 @@ export default function EMICalculator() {
                   <span className="text-primary font-medium">%</span>
                 </div>
               </label>
-              <input
-                type="range"
-                min="5"
-                max="20"
-                step="0.1"
-                value={interestRate}
-                onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary-foreground"
-              />
+              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+                <div
+                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-150"
+                  style={{
+                    width: `${interestProgress}%`,
+                    background: "linear-gradient(90deg, #D4A853, #E8C078)",
+                  }}
+                />
+                <input
+                  type="range"
+                  min="5"
+                  max="20"
+                  step="0.1"
+                  value={interestRate}
+                  onChange={(e) => setInterestRate(Number(e.target.value))}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-accent rounded-full shadow-lg border-2 border-white pointer-events-none transition-all duration-150"
+                  style={{ left: `calc(${interestProgress}% - 12px)` }}
+                />
+              </div>
               <div className="flex justify-between text-xs text-muted-foreground mt-2">
                 <span>5%</span>
                 <span>20%</span>
@@ -222,22 +252,35 @@ export default function EMICalculator() {
                   </div>
                 </div>
               </label>
-              <input
-                type="range"
-                min="12"
-                max="360"
-                step="1"
-                value={tenureMonths}
-                onChange={(e) => setTenureMonths(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary-foreground"
-              />
+              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+                <div
+                  className="absolute top-0 left-0 h-full rounded-full transition-all duration-150"
+                  style={{
+                    width: `${tenureProgress}%`,
+                    background: "linear-gradient(90deg, #D4A853, #E8C078)",
+                  }}
+                />
+                <input
+                  type="range"
+                  min="12"
+                  max="360"
+                  step="1"
+                  value={tenureMonths}
+                  onChange={(e) => setTenureMonths(Number(e.target.value))}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-accent rounded-full shadow-lg border-2 border-white pointer-events-none transition-all duration-150"
+                  style={{ left: `calc(${tenureProgress}% - 12px)` }}
+                />
+              </div>
               <div className="flex justify-between text-xs text-muted-foreground mt-2">
                 <span>1 Year</span>
                 <span>30 Years</span>
               </div>
             </div>
 
-            {/* Results - Updated styling */}
+            {/* Results */}
             <div className="space-y-4 pt-6 border-t border-border">
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Monthly EMI</span>
@@ -265,7 +308,7 @@ export default function EMICalculator() {
             </div>
           </div>
 
-          {/* Pie Chart - Updated styling */}
+          {/* Pie Chart */}
           <div className="flex flex-col items-center justify-center bg-card p-8 lg:p-10 rounded-3xl border border-border shadow-xl">
             <ResponsiveContainer width="100%" height={280}>
               <PieChart>
@@ -286,7 +329,6 @@ export default function EMICalculator() {
               </PieChart>
             </ResponsiveContainer>
 
-            {/* Center text */}
             <div className="text-center -mt-44 mb-32">
               <p className="text-sm text-muted-foreground">Total Payable</p>
               <p className="text-2xl font-bold text-foreground">{formatCurrency(calculations.totalAmount)}</p>
