@@ -1,6 +1,7 @@
 import HeroSection from "@/components/home/hero-section"
 import EMICalculator from "@/components/home/emi-calculator"
 import ServiceCards from "@/components/home/service-cards"
+import CompanyOverview from "@/components/home/company-overview"
 import WhyChooseUs from "@/components/home/why-choose-us"
 import HowItWorks from "@/components/home/how-it-works"
 import Testimonials from "@/components/home/testimonials"
@@ -12,6 +13,7 @@ export default function Home() {
       <HeroSection />
       <EMICalculator />
       <ServiceCards />
+      <CompanyOverview />
       <WhyChooseUs />
       <HowItWorks />
       <Testimonials />

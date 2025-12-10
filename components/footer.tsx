@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, ArrowUpRight } from "lucide-react"
+import Image from "next/image"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -50,8 +51,14 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-11 h-11 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-                <span className="text-primary-foreground font-bold text-xl">C</span>
+              <div className="relative w-11 h-11 flex-shrink-0">
+                <Image
+                  src="/images/logo.jpg"
+                  alt="Capital Core Finance Logo"
+                  width={44}
+                  height={44}
+                  className="rounded-xl"
+                />
               </div>
               <div>
                 <span className="font-bold text-lg text-foreground tracking-tight">Capital Core</span>

@@ -6,6 +6,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Link from "next/link"
 import { Users, Award, TrendingUp, MapPin } from "lucide-react"
+import Image from "next/image"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
@@ -13,9 +14,18 @@ if (typeof window !== "undefined") {
 
 const founders = [
   {
+    name: "Chandrashekhar Raju",
+    role: "CEO, Capital Core Finance",
+    experience: "35+ years",
+    image: "/placeholder.svg?height=400&width=400",
+    description:
+      "A veteran in the finance industry with over three decades of experience, Mr. Chandrashekhar Raju brings unparalleled expertise in banking, lending, and financial management. His leadership and vision have been instrumental in shaping Capital Core Finance into a trusted name.",
+  },
+  {
     name: "Harshavardhan N",
     role: "Business & Project Finance Expert",
     experience: "3+ years",
+    image: "/images/harsha.jpeg",
     description:
       "With expertise in business lending, project financing, and financial strategy, Harshavardhan has guided numerous clients to secure life-changing loans. His deep understanding of bank relationships and loan structuring has earned trust across the industry.",
   },
@@ -23,15 +33,9 @@ const founders = [
     name: "Hase Ashirwad",
     role: "Financial Advisory & Loan Solutions Specialist",
     experience: "3+ years",
+    image: "/images/ashu-20h.jpg",
     description:
       "Specializing in comprehensive financial advisory, housing finance, and banking relations. Hase has helped clients from diverse backgrounds achieve their financial aspirations through personalized loan solutions.",
-  },
-  {
-    name: "Chandrashekhar Raju",
-    role: "CEO, Capital Core Finance",
-    experience: "35+ years",
-    description:
-      "A veteran in the finance industry with over three decades of experience, Mr. Chandrashekhar Raju brings unparalleled expertise in banking, lending, and financial management. His leadership and vision have been instrumental in shaping Capital Core Finance into a trusted name.",
   },
 ]
 
@@ -175,11 +179,8 @@ export default function About() {
                 transition={{ delay: index * 0.15 }}
                 className="group bg-card p-8 rounded-2xl border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-xl"
               >
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-primary-foreground text-2xl font-bold mb-6">
-                  {founder.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
+                <div className="relative w-24 h-24 rounded-full overflow-hidden mb-6 border-4 border-accent/20">
+                  <Image src={founder.image || "/placeholder.svg"} alt={founder.name} fill className="object-cover" />
                 </div>
                 <h3 className="font-bold text-xl mb-1 group-hover:text-accent transition-colors">{founder.name}</h3>
                 <p className="text-accent font-medium text-sm mb-2">{founder.role}</p>

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,7 +33,7 @@ export default function Navigation() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass shadow-lg shadow-primary/5" : "bg-transparent"
+        scrolled ? "bg-background/98 backdrop-blur-sm shadow-lg shadow-primary/5" : "bg-background/95 backdrop-blur-sm"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,21 +41,26 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <motion.div
-              whileHover={{ scale: 1.05, rotate: -5 }}
+              whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400 }}
-              className="relative w-11 h-11 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20"
+              className="relative w-12 h-12 flex-shrink-0"
             >
-              <span className="text-primary-foreground font-bold text-xl">C</span>
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent" />
+              <Image
+                src="/images/logo.jpg"
+                alt="Capital Core Finance Logo"
+                width={48}
+                height={48}
+                className="rounded-xl"
+              />
             </motion.div>
             <div className="hidden sm:block">
-              <span className="font-bold text-lg text-foreground tracking-tight">Capital Core</span>
+              <span className="font-bold text-xl text-foreground tracking-tight">Capital Core</span>
               <span className="block text-xs text-muted-foreground -mt-0.5 tracking-wide">Finance Consultants</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-2">
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.href}
@@ -64,7 +70,7 @@ export default function Navigation() {
               >
                 <Link
                   href={link.href}
-                  className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+                  className="relative px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground transition-colors group"
                 >
                   {link.label}
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-accent rounded-full group-hover:w-4/5 transition-all duration-300" />
