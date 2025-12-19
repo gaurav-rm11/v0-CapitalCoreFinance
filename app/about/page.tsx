@@ -16,7 +16,7 @@ const founders = [
   {
     name: "Chandrashekhar Raju",
     role: "CEO, Capital Core Finance",
-    experience: "35+ years",
+    experience: "20+ years",
     image: "/placeholder.svg?height=400&width=400",
     description:
       "A veteran in the finance industry with over three decades of experience, Mr. Chandrashekhar Raju brings unparalleled expertise in banking, lending, and financial management. His leadership and vision have been instrumental in shaping Capital Core Finance into a trusted name.",
@@ -42,7 +42,7 @@ const founders = [
 const milestones = [
   { icon: Users, value: "500+", label: "Clients Helped" },
   { icon: TrendingUp, value: "₹1000Cr+", label: "Financing Facilitated" },
-  { icon: Award, value: "38+", label: "Years Combined Experience" },
+  { icon: Award, value: "26+", label: "Years Combined Experience" },
   { icon: MapPin, value: "Pan India", label: "Service Coverage" },
 ]
 
@@ -104,7 +104,7 @@ export default function About() {
             transition={{ delay: 0.2 }}
             className="text-xl opacity-90 leading-relaxed"
           >
-            38+ years of combined experience, 500+ clients guided, one mission — providing accessible and transparent
+            26+ years of combined experience, 500+ clients guided, one mission — providing accessible and transparent
             financing solutions for every dream.
           </motion.p>
         </div>
@@ -179,7 +179,7 @@ export default function About() {
                 transition={{ delay: index * 0.15 }}
                 className="group bg-card p-8 rounded-2xl border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-xl"
               >
-                <div className="relative w-24 h-24 rounded-full overflow-hidden mb-6 border-4 border-accent/20">
+                <div className="relative w-24 h-24 mt-2 rounded-full overflow-hidden mb-6 border-4 border-accent/20">
                   <Image src={founder.image || "/placeholder.svg"} alt={founder.name} fill className="object-cover" />
                 </div>
                 <h3 className="font-bold text-xl mb-1 group-hover:text-accent transition-colors">{founder.name}</h3>

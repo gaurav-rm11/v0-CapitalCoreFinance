@@ -14,7 +14,7 @@ const reasons = [
   {
     icon: Award,
     title: "Experience That Matters",
-    description: "38+ years of combined financial expertise across multiple loan categories",
+    description: "26+ years of combined financial expertise across multiple loan categories",
   },
   {
     icon: Users,
