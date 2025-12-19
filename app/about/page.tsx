@@ -180,7 +180,7 @@ export default function About() {
                 className="group bg-card p-8 rounded-2xl border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-xl"
               >
                 <div className="relative w-24 h-24 mt-2 rounded-full overflow-hidden mb-6 border-4 border-accent/20">
-                  <Image src={founder.image || "/placeholder.svg"} alt={founder.name} fill className="object-cover" />
+                  <Image src={founder.image || "/placeholder.svg"} alt={founder.name} fill className="object-cover object-[center_20%]" />
                 </div>
                 <h3 className="font-bold text-xl mb-1 group-hover:text-accent transition-colors">{founder.name}</h3>
                 <p className="text-accent font-medium text-sm mb-2">{founder.role}</p>
