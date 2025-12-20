@@ -11,13 +11,17 @@ import { Calculator } from "lucide-react"
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
-const MIN_LOAN = 100_000           // 1 Lakh
-const MAX_LOAN = 10_000_000_000    // 1000 Crore
+
+const MIN_LOAN = 100_000 // 1 Lakh
+const MAX_LOAN = 10_000_000_000 // 1000 Crore
 
 export default function EMICalculator() {
-  const [loanAmount, setLoanAmount] = useState(2500000)
+  const [loanAmount, setLoanAmount] = useState(100_000)
   const [interestRate, setInterestRate] = useState(10.5)
   const [tenureMonths, setTenureMonths] = useState(60)
+  const [loanAmountError, setLoanAmountError] = useState(false)
+  const [interestRateError, setInterestRateError] = useState(false)
+  const [loanAmountInput, setLoanAmountInput] = useState("1,00,000")
   const sectionRef = useRef<HTMLElement>(null)
 
   const tenureYears = Math.floor(tenureMonths / 12)
@@ -60,15 +64,44 @@ export default function EMICalculator() {
 
   const handleLoanAmountInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/,/g, "")
-    const numValue = Number.parseInt(value) || 0
-    if (numValue >= MIN_LOAN && numValue <= MAX_LOAN) {
-  setLoanAmount(numValue)
-}
+    setLoanAmountInput(e.target.value)
+
+    // Allow empty input
+    if (value === "") {
+      setLoanAmountError(true)
+      return
+    }
+
+    const numValue = Number.parseInt(value)
+
+    // Check if it's a valid number
+    if (isNaN(numValue)) {
+      setLoanAmountError(true)
+      return
+    }
+
+    // Validate range
+    if (numValue < MIN_LOAN || numValue > MAX_LOAN) {
+      setLoanAmountError(true)
+    } else {
+      setLoanAmountError(false)
+      setLoanAmount(numValue)
+    }
+  }
+
+  const handleLoanAmountBlur = () => {
+    if (!loanAmountError && loanAmount >= MIN_LOAN && loanAmount <= MAX_LOAN) {
+      setLoanAmountInput(loanAmount.toLocaleString("en-IN"))
+    }
   }
 
   const handleInterestInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number.parseFloat(e.target.value) || 0
-    if (value >= 0 && value <= 25) {
+
+    if (value < 5 || value > 20) {
+      setInterestRateError(true)
+    } else {
+      setInterestRateError(false)
       setInterestRate(value)
     }
   }
@@ -86,6 +119,10 @@ export default function EMICalculator() {
       setTenureMonths(tenureYears * 12 + months)
     }
   }
+
+  useEffect(() => {
+    setLoanAmountInput(loanAmount.toLocaleString("en-IN"))
+  }, [loanAmount])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -146,17 +183,27 @@ export default function EMICalculator() {
             <div>
               <label className="flex justify-between items-center mb-4">
                 <span className="text-sm font-semibold text-foreground">Loan Amount</span>
-                <div className="flex items-center gap-1 bg-gradient-to-r from-accent/10 to-accent/5 px-4 py-2.5 rounded-xl border border-accent/20">
-                  <span className="text-accent font-semibold">₹</span>
+                <div
+                  className={`flex items-center gap-1 px-4 py-2.5 rounded-xl border transition-colors ${
+                    loanAmountError
+                      ? "bg-red-50 border-red-300"
+                      : "bg-gradient-to-r from-accent/10 to-accent/5 border-accent/20"
+                  }`}
+                >
+                  <span className={`font-semibold ${loanAmountError ? "text-red-600" : "text-accent"}`}>₹</span>
                   <input
                     type="text"
-                    value={loanAmount.toLocaleString("en-IN")}
+                    value={loanAmountInput}
                     onChange={handleLoanAmountInput}
-                    className="w-28 bg-transparent text-accent font-bold text-lg text-right focus:outline-none"
+                    onBlur={handleLoanAmountBlur}
+                    placeholder="1,00,000"
+                    className={`w-28 bg-transparent font-bold text-lg text-right focus:outline-none ${
+                      loanAmountError ? "text-red-600" : "text-accent"
+                    }`}
                   />
                 </div>
               </label>
-              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+              <div className="relative h-3 bg-muted rounded-full overflow-visible">
                 <div
                   className="absolute top-0 left-0 h-full rounded-full transition-all duration-200"
                   style={{
@@ -170,38 +217,50 @@ export default function EMICalculator() {
                   max={MAX_LOAN}
                   step="100000"
                   value={loanAmount}
-                  onChange={(e) => setLoanAmount(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full cursor-pointer"
-                  style={{ opacity: 0 }}
+                  onChange={(e) => {
+                    setLoanAmount(Number(e.target.value))
+                    setLoanAmountError(false)
+                  }}
+                  className="absolute inset-0 w-full h-full cursor-pointer opacity-0"
                 />
-
                 <div
-                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-accent to-accent/80 rounded-full shadow-lg shadow-accent/30 border-[3px] border-white pointer-events-none transition-all duration-200"
-                  style={{ left: `calc(${loanProgress}% - 12px)` }}
+                  className="absolute top-1/2 -translate-y-1/2 w-7 h-7 bg-gradient-to-br from-accent to-accent/90 rounded-full shadow-xl shadow-accent/40 border-4 border-white pointer-events-none transition-all duration-200 hover:scale-110"
+                  style={{ left: `calc(${loanProgress}% - 14px)` }}
                 />
               </div>
               <div className="flex justify-between text-xs text-muted-foreground mt-3 font-medium">
                 <span>₹1 Lakh</span>
                 <span>₹1000 Crore</span>
               </div>
+              {loanAmountError && (
+                <p className="text-xs text-red-600 mt-2">Amount must be between ₹1 Lakh and ₹1000 Crore</p>
+              )}
             </div>
 
             {/* Interest Rate */}
             <div>
               <label className="flex justify-between items-center mb-4">
                 <span className="text-sm font-semibold text-foreground">Rate of Interest (p.a)</span>
-                <div className="flex items-center gap-1 bg-gradient-to-r from-accent/10 to-accent/5 px-4 py-2.5 rounded-xl border border-accent/20">
+                <div
+                  className={`flex items-center gap-1 px-4 py-2.5 rounded-xl border transition-colors ${
+                    interestRateError
+                      ? "bg-red-50 border-red-300"
+                      : "bg-gradient-to-r from-accent/10 to-accent/5 border-accent/20"
+                  }`}
+                >
                   <input
                     type="number"
                     step="0.1"
                     value={interestRate}
                     onChange={handleInterestInput}
-                    className="w-16 bg-transparent text-accent font-bold text-lg text-right focus:outline-none"
+                    className={`w-16 bg-transparent font-bold text-lg text-right focus:outline-none ${
+                      interestRateError ? "text-red-600" : "text-accent"
+                    }`}
                   />
-                  <span className="text-accent font-semibold">%</span>
+                  <span className={`font-semibold ${interestRateError ? "text-red-600" : "text-accent"}`}>%</span>
                 </div>
               </label>
-              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+              <div className="relative h-3 bg-muted rounded-full overflow-visible">
                 <div
                   className="absolute top-0 left-0 h-full rounded-full transition-all duration-200"
                   style={{
@@ -215,19 +274,24 @@ export default function EMICalculator() {
                   max="20"
                   step="0.1"
                   value={interestRate}
-                  onChange={(e) => setInterestRate(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full cursor-pointer"
-                  style={{ opacity: 0 }}
+                  onChange={(e) => {
+                    setInterestRate(Number(e.target.value))
+                    setInterestRateError(false)
+                  }}
+                  className="absolute inset-0 w-full h-full cursor-pointer opacity-0"
                 />
                 <div
-                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-accent to-accent/80 rounded-full shadow-lg shadow-accent/30 border-[3px] border-white pointer-events-none transition-all duration-200"
-                  style={{ left: `calc(${interestProgress}% - 12px)` }}
+                  className="absolute top-1/2 -translate-y-1/2 w-7 h-7 bg-gradient-to-br from-accent to-accent/90 rounded-full shadow-xl shadow-accent/40 border-4 border-white pointer-events-none transition-all duration-200 hover:scale-110"
+                  style={{ left: `calc(${interestProgress}% - 14px)` }}
                 />
               </div>
               <div className="flex justify-between text-xs text-muted-foreground mt-3 font-medium">
                 <span>5%</span>
                 <span>20%</span>
               </div>
+              {interestRateError && (
+                <p className="text-xs text-red-600 mt-2">Interest rate must be between 5% and 20%</p>
+              )}
             </div>
 
             {/* Loan Tenure */}
@@ -259,7 +323,7 @@ export default function EMICalculator() {
                   </div>
                 </div>
               </label>
-              <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+              <div className="relative h-3 bg-muted rounded-full overflow-visible">
                 <div
                   className="absolute top-0 left-0 h-full rounded-full transition-all duration-200"
                   style={{
@@ -274,12 +338,11 @@ export default function EMICalculator() {
                   step="1"
                   value={tenureMonths}
                   onChange={(e) => setTenureMonths(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full cursor-pointer"
-                  style={{ opacity: 0 }}
+                  className="absolute inset-0 w-full h-full cursor-pointer opacity-0"
                 />
                 <div
-                  className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-accent to-accent/80 rounded-full shadow-lg shadow-accent/30 border-[3px] border-white pointer-events-none transition-all duration-200"
-                  style={{ left: `calc(${tenureProgress}% - 12px)` }}
+                  className="absolute top-1/2 -translate-y-1/2 w-7 h-7 bg-gradient-to-br from-accent to-accent/90 rounded-full shadow-xl shadow-accent/40 border-4 border-white pointer-events-none transition-all duration-200 hover:scale-110"
+                  style={{ left: `calc(${tenureProgress}% - 14px)` }}
                 />
               </div>
               <div className="flex justify-between text-xs text-muted-foreground mt-3 font-medium">
@@ -342,16 +405,12 @@ export default function EMICalculator() {
 
               {/* Center Text */}
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <p className="text-sm text-muted-foreground mb-1">
-                  Total Payable
-                </p>
+                <p className="text-sm text-muted-foreground mb-1">Total Payable</p>
                 <p className="text-xl md:text-2xl font-bold gradient-text text-center leading-tight px-4">
                   {formatCurrency(calculations.totalAmount)}
                 </p>
               </div>
             </div>
-
-
 
             <div className="flex gap-10 justify-center">
               <div className="flex items-center gap-3">

@@ -6,46 +6,46 @@ import ResourceDownloadModal from "@/components/resource-download-modal"
 
 const resources = [
   {
-    title: "Business Loan Document Checklist",
+    title: "Personal Loan - Document Requirements",
     description:
-      "Complete checklist of all documents typically required for business loan applications. Download and ensure you have everything ready.",
-    category: "Checklist",
-    downloadUrl: "/downloads/business-loan-checklist.pdf",
+      "Complete checklist for personal loan applications including KYC documents, income proof, and requirements for both secured and unsecured personal loans.",
+    category: "Document Checklist",
+    downloadUrl: "/downloads/personal-loan.pdf",
   },
   {
-    title: "How to Improve Your Business CIBIL Score",
+    title: "Home Loan - Document Requirements",
     description:
-      "Comprehensive guide on understanding CIBIL scores and actionable steps to improve your creditworthiness for better loan terms.",
-    category: "Guide",
-    downloadUrl: "/downloads/improve-cibil-score.pdf",
+      "Comprehensive documentation guide for home loans covering salaried, self-employed, and business owner applicants. Includes property verification requirements.",
+    category: "Document Checklist",
+    downloadUrl: "/downloads/home-loan.pdf",
   },
   {
-    title: "Top 5 Reasons Bank Loans Get Rejected",
+    title: "Business Loan - Document Requirements",
     description:
-      "Learn the most common reasons why loan applications are rejected and how to avoid these pitfalls across all loan categories.",
-    category: "Article",
-    downloadUrl: "/downloads/loan-rejection-reasons.pdf",
+      "Essential documents for business loans including registration certificates, GST returns, financial statements, and requirements for secured and unsecured loans.",
+    category: "Document Checklist",
+    downloadUrl: "/downloads/business-loan.pdf",
   },
   {
-    title: "Complete Guide to Housing Loans",
+    title: "Real Estate & Project Loans - Documents",
     description:
-      "Everything you need to know about home loans — eligibility, documentation, EMI calculation, and the approval process.",
-    category: "Guide",
-    downloadUrl: "/downloads/housing-loan-guide.pdf",
+      "Complete documentation guide for real estate and project financing including site purchase, construction loans, and commercial property financing.",
+    category: "Document Checklist",
+    downloadUrl: "/downloads/real-estate-project-loans.pdf",
   },
   {
-    title: "Education Loan: Your Study Abroad Handbook",
+    title: "Educational Loan - Document Requirements",
     description:
-      "Step-by-step guide for securing education loans for domestic and international studies with minimal paperwork.",
-    category: "Handbook",
-    downloadUrl: "/downloads/education-loan-handbook.pdf",
+      "Step-by-step documentation guide for education loans covering domestic and international studies with detailed checklist and eligibility criteria.",
+    category: "Document Checklist",
+    downloadUrl: "/downloads/educational-loan.pdf",
   },
   {
-    title: "Loan Restructuring: Complete Guide",
+    title: "Loan Against Property - Document Requirements",
     description:
-      "In-depth guide explaining loan restructuring, when you need it, and how it can help resolve financial challenges.",
-    category: "Guide",
-    downloadUrl: "/downloads/loan-restructuring-guide.pdf",
+      "Complete guide for loan against property including property documents, valuation requirements, legal verification, and income documentation.",
+    category: "Document Checklist",
+    downloadUrl: "/downloads/loan-against-property.pdf",
   },
 ]
 
@@ -61,10 +61,10 @@ export default function Resources() {
   return (
     <main className="py-16 md:py-24 bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Resources & Guides</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">Loan Documentation Resources</h1>
         <p className="text-lg text-muted-foreground mb-12">
-          Free resources to help you make informed decisions about financing and navigate the loan process with
-          confidence.
+          Download comprehensive document checklists for various loan types. Get organized and speed up your loan
+          approval process.
         </p>
 
         <div className="space-y-4 mb-12">
@@ -94,9 +94,9 @@ export default function Resources() {
         </div>
 
         <div className="p-8 bg-accent/10 border border-accent/20 rounded-lg text-center">
-          <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
+          <h3 className="text-2xl font-bold mb-4">Need Personalized Assistance?</h3>
           <p className="text-muted-foreground mb-6">
-            Chat with us directly or book a consultation with our financing experts. We're here to help!
+            Our loan experts are ready to help you with document preparation, bank selection, and faster approvals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
@@ -106,10 +106,10 @@ export default function Resources() {
               Contact Us
             </a>
             <a
-              href="#"
+              href="tel:+919975985314"
               className="px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors"
             >
-              Chat Now
+              Call Now
             </a>
           </div>
         </div>
