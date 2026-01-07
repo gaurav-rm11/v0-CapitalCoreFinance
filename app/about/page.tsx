@@ -40,9 +40,9 @@ const founders = [
 ]
 
 const milestones = [
-  { icon: Users, value: "500+", label: "Clients Helped" },
+  { icon: Users, value: "2500+", label: "Clients Helped" },
   { icon: TrendingUp, value: "₹1000Cr+", label: "Financing Facilitated" },
-  { icon: Award, value: "26+", label: "Years Combined Experience" },
+  { icon: Award, value: "18+", label: "Years Combined Experience" },
   { icon: MapPin, value: "Pan India", label: "Service Coverage" },
 ]
 
@@ -104,7 +104,7 @@ export default function About() {
             transition={{ delay: 0.2 }}
             className="text-xl opacity-90 leading-relaxed"
           >
-            26+ years of combined experience, 500+ clients guided, one mission — providing accessible and transparent
+            18+ years of combined experience, 2500+ clients guided, one mission — providing accessible and transparent
             financing solutions for every dream.
           </motion.p>
         </div>
@@ -122,7 +122,7 @@ export default function About() {
                 complex loan processes, rejections, and unclear guidance across multiple loan categories.
               </p>
               <p className="leading-relaxed">
-                Today, we've helped 500+ clients secure funding across business loans, housing, education, machinery,
+                Today, we've helped 2500+ clients secure funding across business loans, housing, education, machinery,
                 and project financing. Every client is treated as a partner, and their success is our success.
               </p>
             </div>

@@ -14,12 +14,12 @@ const reasons = [
   {
     icon: Award,
     title: "Experience That Matters",
-    description: "26+ years of combined financial expertise across multiple loan categories",
+    description: "18+ years of combined financial expertise across multiple loan categories",
   },
   {
     icon: Users,
     title: "Proven Results",
-    description: "500+ clients successfully funded with 95% approval rate",
+    description: "2500+ clients successfully funded with 95% approval rate",
   },
   {
     icon: Clock,
@@ -78,7 +78,7 @@ export default function WhyChooseUs() {
               Why Choose Us
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight text-foreground">
-              Why <span className="gradient-text">500+ Clients</span> Trust Capital Core
+              Why <span className="gradient-text">2500+ Clients</span> Trust Capital Core
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
               Our commitment to excellence and client success drives everything we do. We combine deep expertise with
@@ -92,11 +92,11 @@ export default function WhyChooseUs() {
                 <div className="text-sm text-muted-foreground mt-1">Approval Rate</div>
               </div>
               <div>
-                <div className="text-4xl font-bold gradient-text">500+</div>
+                <div className="text-4xl font-bold gradient-text">2500+</div>
                 <div className="text-sm text-muted-foreground mt-1">Happy Clients</div>
               </div>
               <div>
-                <div className="text-4xl font-bold gradient-text">26+</div>
+                <div className="text-4xl font-bold gradient-text">18+</div>
                 <div className="text-sm text-muted-foreground mt-1">Years Combined</div>
               </div>
             </div>

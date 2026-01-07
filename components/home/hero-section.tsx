@@ -142,7 +142,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg md:text-xl lg:text-2xl text-primary-foreground/80 mb-12 leading-relaxed max-w-3xl mx-auto font-light"
           >
-            26+ years of combined expertise helping 500+ businesses and individuals achieve their financial goals
+            18+ years of combined expertise helping 2500+ businesses and individuals achieve their financial goals
           </motion.p>
 
           {/* CTA Buttons */}
@@ -176,8 +176,8 @@ export default function HeroSection() {
             className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
           >
             {[
-              { value: "500+", label: "Clients Served" },
-              { value: "26+", label: "Years Experience" },
+              { value: "2500+", label: "Clients Served" },
+              { value: "18+", label: "Years Experience" },
               { value: "98%", label: "Approval Rate" },
               { value: "Banglore", label: "Based" },
             ].map((badge, i) => (
