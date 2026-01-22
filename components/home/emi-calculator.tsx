@@ -162,7 +162,7 @@ export default function EMICalculator() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="min-h-screen py-12 md:py-20 bg-white relative overflow-hidden rounded-t-[50px] md:rounded-t-[80px] -mt-10 z-10 flex flex-col justify-center">
+    <section ref={sectionRef} className="min-h-screen py-12 md:py-20 bg-white relative overflow-hidden -mt-10 z-10 flex flex-col justify-center">
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div

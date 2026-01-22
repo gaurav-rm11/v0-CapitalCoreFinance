@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { Menu, X, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
@@ -11,6 +12,7 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +42,13 @@ export default function Navigation() {
     { label: "Resources", href: "/resources" },
     { label: "Contact", href: "/contact" },
   ]
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/"
+    }
+    return pathname.startsWith(href)
+  }
 
   return (
     <motion.nav
@@ -106,10 +115,20 @@ export default function Navigation() {
                 >
                   <Link
                     href={link.href}
-                    className="relative px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors group"
+                    className={`relative px-4 py-2 text-sm font-medium transition-colors group ${
+                      isActive(link.href) 
+                        ? "text-accent" 
+                        : "text-white/80 hover:text-white"
+                    }`}
                   >
                     {link.label}
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent rounded-full group-hover:w-4/5 transition-all duration-300" />
+                    <span 
+                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-accent rounded-full transition-all duration-300 ${
+                        isActive(link.href) 
+                          ? "w-4/5" 
+                          : "w-0 group-hover:w-4/5"
+                      }`} 
+                    />
                   </Link>
                 </motion.div>
               ))}
@@ -176,7 +195,11 @@ export default function Navigation() {
                   >
                     <Link
                       href={link.href}
-                      className="block px-4 py-3 hover:bg-white/10 rounded-xl transition-colors text-white font-medium"
+                      className={`block px-4 py-3 rounded-xl transition-colors font-medium ${
+                        isActive(link.href)
+                          ? "bg-accent/20 text-accent border border-accent/30"
+                          : "hover:bg-white/10 text-white"
+                      }`}
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}

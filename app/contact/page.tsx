@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { Phone, Mail, MapPin, Send } from "lucide-react"
+import { Phone, Mail, MapPin, Send, Clock, CheckCircle2 } from "lucide-react"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
@@ -102,34 +102,59 @@ export default function Contact() {
     },
   ]
 
+  const whyContactUs = [
+    {
+      icon: Clock,
+      title: "Quick Response",
+      description: "Get a response within 24 hours from our expert team",
+    },
+    {
+      icon: CheckCircle2,
+      title: "Free Consultation",
+      description: "No obligation consultation to understand your needs",
+    },
+    {
+      icon: Send,
+      title: "Personalized Solutions",
+      description: "Tailored financing options based on your requirements",
+    },
+  ]
+
   return (
-    <main className="bg-background">
-      {/* Hero Section */}
-      <section ref={heroRef} className="py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+    <main>
+      {/* Hero Section - Bright */}
+      <section ref={heroRef} className="py-20 md:py-28 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-20 right-20 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-20 w-72 h-72 bg-blue-100/50 rounded-full blur-3xl" />
+        </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="max-w-3xl">
-            <span className="hero-animate inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4 bg-primary/10 px-4 py-2 rounded-full">
+          <div className="text-center max-w-3xl mx-auto">
+            <span className="hero-animate inline-block text-accent font-semibold text-sm tracking-wider uppercase mb-4 bg-accent/10 px-4 py-2 rounded-full">
               Get In Touch
             </span>
-            <h1 className="hero-animate text-4xl md:text-6xl font-bold mb-6 tracking-tight text-foreground">
+            <h1 className="hero-animate text-4xl md:text-6xl font-bold mb-6 tracking-tight text-gray-900">
               Contact Us
             </h1>
-            <p className="hero-animate text-xl text-muted-foreground leading-relaxed">
+            <p className="hero-animate text-xl text-gray-600 leading-relaxed">
               Let's discuss your loan needs and find the perfect financing solution for your dreams.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Info & Form */}
-      <section className="py-16 md:py-24">
+      {/* Contact Info & Form - Bright */}
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-12">
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-1 space-y-6">
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">Reach Out to Us</h2>
+                <p className="text-gray-600">We're here to help you with all your financing needs</p>
+              </div>
+
               {contactInfo.map((info, index) => {
                 const Icon = info.icon
                 return (
@@ -139,20 +164,20 @@ export default function Contact() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="p-6 bg-card border border-border rounded-2xl hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                    className="p-6 bg-gray-50 border border-gray-200 rounded-2xl hover:border-accent/50 hover:shadow-lg transition-all duration-300"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="p-3 bg-primary/10 rounded-xl">
-                        <Icon className="text-primary" size={24} />
+                      <div className="p-3 bg-accent/10 rounded-xl">
+                        <Icon className="text-accent" size={24} />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-2">{info.title}</h3>
+                        <h3 className="font-semibold text-gray-900 mb-2">{info.title}</h3>
                         <div className="space-y-1">
                           {info.details.map((detail, i) => (
                             <a
                               key={i}
                               href={detail.href}
-                              className="block text-muted-foreground hover:text-primary transition-colors"
+                              className="block text-gray-600 hover:text-accent transition-colors"
                             >
                               {detail.label}
                             </a>
@@ -171,24 +196,29 @@ export default function Contact() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-primary text-primary-foreground p-12 rounded-2xl text-center"
+                  className="bg-gradient-to-br from-accent to-accent/90 text-black p-12 rounded-2xl text-center shadow-2xl"
                 >
-                  <div className="w-16 h-16 bg-primary-foreground/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Send className="text-primary-foreground" size={28} />
+                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Send className="text-black" size={28} />
                   </div>
                   <h3 className="font-bold text-2xl mb-3">Thank You!</h3>
-                  <p className="text-primary-foreground/80">
+                  <p className="text-black/80">
                     We've received your inquiry. Our team will contact you within 24 hours.
                   </p>
                 </motion.div>
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className="space-y-6 bg-card p-8 md:p-10 rounded-2xl border border-border shadow-xl"
+                  className="space-y-6 bg-white p-8 md:p-10 rounded-2xl border-2 border-gray-200 shadow-xl"
                 >
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Send Us a Message</h3>
+                    <p className="text-gray-600">Fill out the form below and we'll get back to you shortly</p>
+                  </div>
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Full Name *</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-2">Full Name *</label>
                       <input
                         type="text"
                         name="name"
@@ -196,11 +226,11 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-gray-900"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Company Name *</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-2">Company Name *</label>
                       <input
                         type="text"
                         name="company"
@@ -208,14 +238,14 @@ export default function Contact() {
                         value={formData.company}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-gray-900"
                       />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Email *</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-2">Email *</label>
                       <input
                         type="email"
                         name="email"
@@ -223,11 +253,11 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-gray-900"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Phone *</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-2">Phone *</label>
                       <input
                         type="tel"
                         name="phone"
@@ -235,19 +265,19 @@ export default function Contact() {
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-gray-900"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Loan Type *</label>
+                    <label className="block text-sm font-semibold text-gray-900 mb-2">Loan Type *</label>
                     <select
                       name="loanType"
                       value={formData.loanType}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-gray-900"
                     >
                       <option value="" disabled>
                         Select Loan Type
@@ -262,14 +292,14 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Message</label>
+                    <label className="block text-sm font-semibold text-gray-900 mb-2">Message</label>
                     <textarea
                       name="message"
                       placeholder="Tell us about your financing needs..."
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none text-gray-900"
                     ></textarea>
                   </div>
 
@@ -281,22 +311,145 @@ export default function Contact() {
                       checked={formData.agree}
                       onChange={handleChange}
                       required
-                      className="mt-1 w-4 h-4 accent-primary"
+                      className="mt-1 w-4 h-4 accent-accent"
                     />
-                    <label htmlFor="agree" className="text-sm text-muted-foreground">
+                    <label htmlFor="agree" className="text-sm text-gray-600">
                       I agree to be contacted by Capital Core Finance for discussing my loan needs.
                     </label>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full px-6 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
+                    className="w-full px-6 py-4 bg-accent text-black font-bold rounded-xl hover:bg-accent/90 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-accent/20"
                   >
                     Submit Inquiry
                     <Send size={18} />
                   </button>
                 </form>
               )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Contact Us - Dark */}
+      <section className="py-20 md:py-28 bg-black relative overflow-hidden">
+        {/* Background Image Layer */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/assets/service-bg.png')" }}
+        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Why Contact Us?</h2>
+            <p className="text-white/70 max-w-2xl mx-auto">
+              Experience professional service and personalized attention for all your financing needs
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {whyContactUs.map((item, index) => {
+              const Icon = item.icon
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-accent/50 hover:bg-white/10 transition-all duration-300"
+                >
+                  <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center mb-6">
+                    <Icon className="text-accent" size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
+                  <p className="text-white/70 leading-relaxed">{item.description}</p>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Map Section - Bright */}
+      <section className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900">Visit Our Office</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Located in Yelahanka, Bengaluru - We're here to serve you
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            {/* Map */}
+            <div className="bg-white rounded-2xl border-2 border-gray-200 overflow-hidden shadow-xl">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124423.4489326!2d77.4647!3d13.1007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae23ac16a1b2e9%3A0x7009e0d0d6b0c10!2sYelahanka%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1234567890"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full"
+              ></iframe>
+            </div>
+
+            {/* Address Details */}
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-2xl border-2 border-gray-200 shadow-lg">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-accent/10 rounded-xl">
+                    <MapPin className="text-accent" size={24} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-2 text-lg">Office Address</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Yelahanka, Bengaluru<br />
+                      Karnataka, India
+                    </p>
+                    <p className="text-sm text-gray-500 mt-3 italic">
+                      Complete address will be updated soon
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border-2 border-gray-200 shadow-lg">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-accent/10 rounded-xl">
+                    <Clock className="text-accent" size={24} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-2 text-lg">Business Hours</h3>
+                    <div className="space-y-1 text-gray-600">
+                      <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                      <p>Saturday: 9:00 AM - 2:00 PM</p>
+                      <p>Sunday: Closed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-accent to-accent/90 p-6 rounded-2xl shadow-lg">
+                <h3 className="font-bold text-black mb-2 text-lg">Need Directions?</h3>
+                <p className="text-black/80 text-sm mb-4">
+                  Get directions to our office directly from Google Maps
+                </p>
+                <a
+                  href="https://www.google.com/maps/dir//Yelahanka,+Bengaluru,+Karnataka/@13.1007,77.4647,12z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded-xl font-semibold hover:bg-black/90 transition-all duration-300 text-sm"
+                >
+                  Get Directions
+                  <MapPin size={16} />
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -1,188 +1,223 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, ArrowUpRight } from "lucide-react"
+import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Send, Globe, ArrowRight } from "lucide-react"
 import Image from "next/image"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const [email, setEmail] = useState("")
+  const [agreed, setAgreed] = useState(false)
 
   const quickLinks = [
-    { label: "About Us", href: "/about" },
-    { label: "How It Works", href: "/how-it-works" },
-    { label: "Testimonials", href: "/testimonials" },
-    { label: "Resources", href: "/resources" },
+    { label: "FAQ", href: "/resources#faq" },
+    { label: "Pricing Plan", href: "/services" },
+    { label: "Contact", href: "/contact" },
+    { label: "Market Overview", href: "/resources#market" },
+    { label: "Deposit & Withdrawals", href: "/how-it-works#process" },
+    { label: "Account Login", href: "/contact#login" },
   ]
 
-  const services = [
-    { label: "Business Loans", href: "/services/business-loans" },
-    { label: "Project Loans", href: "/services/project-loans" },
-    { label: "Housing Loans", href: "/services/housing-loans" },
-    { label: "Education Loans", href: "/services/education-loans" },
+  const aboutLinks = [
+    { label: "Our Story", href: "/about#story" },
+    { label: "Our Team", href: "/about#team" },
+    { label: "Portfolio", href: "/services#portfolio" },
+    { label: "Career", href: "/contact#career" },
+    { label: "Client Testimonials", href: "/testimonials" },
+    { label: "Security Promise", href: "/privacy-policy#security" },
   ]
+
+  const supportLinks = [
+    { label: "About", href: "/about" },
+    { label: "Live Chat", href: "/contact#chat" },
+    { label: "Trading Guide", href: "/how-it-works#guide" },
+    { label: "Terms & Conditions", href: "/terms" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Risk Disclosure", href: "/terms#risk" },
+  ]
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email && agreed) {
+      console.log("Email submitted:", email)
+      setEmail("")
+      setAgreed(false)
+    }
+  }
 
   return (
-    <footer className="relative bg-gradient-to-b from-background to-secondary/50 border-t border-border">
-      {/* Top CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="premium-card p-8 md:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6"
-        >
-          <div>
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Ready to get started?</h3>
-            <p className="text-muted-foreground">Get pre-qualified for your loan in minutes</p>
-          </div>
-          <Link
-            href="/contact"
-            className="premium-btn-gold px-8 py-4 text-accent-foreground rounded-2xl font-semibold inline-flex items-center gap-2 whitespace-nowrap"
-          >
-            Get Pre-Qualified
-            <ArrowUpRight className="w-5 h-5" />
-          </Link>
-        </motion.div>
-      </div>
+    <footer className="relative bg-black overflow-hidden">
+      {/* Background Image Layer - Same as Service Section */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/assets/service-bg.png')" }}
+      />
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Company Info */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="relative w-11 h-11 flex-shrink-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative z-10">
+        {/* Top Section - Newsletter & Logo */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-16 pb-12 border-b border-white/10">
+          {/* Newsletter */}
+          <div>
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
+              Register For Our<br />Updates
+            </h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="relative flex gap-2">
+                <div className="flex-1 relative">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
+                    <Send size={16} className="text-black" />
+                  </div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="w-full pl-16 pr-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-accent transition-colors"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={!email || !agreed}
+                  className="px-6 py-3 bg-accent text-black font-semibold rounded-xl hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-2 group"
+                >
+                  <span className="hidden sm:inline">Subscribe</span>
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+              <label className="flex items-start gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={agreed}
+                  onChange={(e) => setAgreed(e.target.checked)}
+                  className="mt-1 w-4 h-4 rounded border-white/20 bg-white/10 text-accent focus:ring-accent"
+                  required
+                />
+                <span className="text-xs text-white/60">
+                  I acknowledge all the Terms & Conditions
+                </span>
+              </label>
+            </form>
+          </div>
+
+          {/* Logo & Description */}
+          <div className="flex flex-col justify-center">
+            <Link href="/" className="flex items-center gap-3 mb-4">
+              <div className="relative w-12 h-12 flex-shrink-0">
                 <Image
                   src="/images/logo.jpg"
                   alt="Capital Core Finance Logo"
-                  width={44}
-                  height={44}
+                  width={48}
+                  height={48}
                   className="rounded-xl"
                 />
               </div>
               <div>
-                <span className="font-bold text-lg text-foreground tracking-tight">Capital Core</span>
-                <span className="block text-xs text-muted-foreground -mt-0.5">Finance Consultants</span>
+                <span className="font-bold text-2xl text-white tracking-tight">Capital Core</span>
               </div>
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Empowering businesses and individuals with smarter financing solutions since 2020. Your trusted partner
-              for all loan needs.
+            <p className="text-white/60 text-sm leading-relaxed max-w-md">
+              Your trusted partner for comprehensive financial solutions. We specialize in business loans, project financing, and strategic financial consulting.
             </p>
-            <div className="flex gap-3">
-              {[
-                { icon: Linkedin, href: "#" },
-                { icon: Twitter, href: "#" },
-                { icon: Facebook, href: "#" },
-                { icon: Instagram, href: "#" },
-              ].map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  className="w-10 h-10 bg-muted rounded-xl flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                >
-                  <social.icon size={18} />
-                </a>
-              ))}
+            <div className="mt-6">
+              <h4 className="text-white font-semibold mb-3">Stay Tuned</h4>
+              <div className="flex gap-3">
+                {[
+                  { icon: Globe, href: "#" },
+                  { icon: Instagram, href: "#" },
+                  { icon: Facebook, href: "#" },
+                  { icon: Twitter, href: "#" },
+                ].map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    className="w-10 h-10 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center text-white hover:bg-accent hover:border-accent hover:text-black transition-all duration-300"
+                  >
+                    <social.icon size={18} />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
+        </div>
 
+        {/* Links Section */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mb-12">
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-6">Company</h4>
+            <h4 className="font-semibold text-white mb-6">Quick Links</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center gap-1 group"
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
                     {link.label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services */}
+          {/* About */}
           <div>
-            <h4 className="font-semibold text-foreground mb-6">Services</h4>
+            <h4 className="font-semibold text-white mb-6">About</h4>
             <ul className="space-y-3">
-              {services.map((link) => (
+              {aboutLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center gap-1 group"
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
                     {link.label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Support Pages */}
           <div>
-            <h4 className="font-semibold text-foreground mb-6">Contact Us</h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <MapPin size={18} className="text-accent" />
-                </div>
-                <div>
-                  <span className="text-muted-foreground text-sm">Yelahanka, Bengaluru, Karnataka</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Phone size={18} className="text-accent" />
-                </div>
-                <div className="space-y-1">
-                  <a
-                    href="tel:+919975985314"
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm block"
+            <h4 className="font-semibold text-white mb-6">Support Pages</h4>
+            <ul className="space-y-3">
+              {supportLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
-                    +91 99759 85314
-                  </a>
-                  <a
-                    href="tel:+919902545483"
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm block"
-                  >
-                    +91 99025 45483
-                  </a>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Mail size={18} className="text-accent" />
-                </div>
-                <a
-                  href="mailto:info@capitalcore.com"
-                  className="text-muted-foreground hover:text-foreground transition-colors text-sm"
-                >
-                  info@capitalcore.com
-                </a>
-              </li>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">© {currentYear} Capital Core Finance. All rights reserved.</p>
-          <div className="flex gap-6">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex gap-6 order-2 md:order-1">
+            <Link
+              href="/terms"
+              className="text-sm text-white/60 hover:text-white transition-colors"
+            >
+              Terms & Condition
+            </Link>
             <Link
               href="/privacy-policy"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-white/60 hover:text-white transition-colors"
             >
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Terms of Service
-            </Link>
           </div>
+          <p className="text-sm text-white/60 order-1 md:order-2">
+            Capital Core Finance. All Rights Reserved {currentYear} ©
+          </p>
         </div>
       </div>
     </footer>

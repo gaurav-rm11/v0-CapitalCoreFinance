@@ -62,7 +62,7 @@ export default function RootLayout({
               },
               telephone: "+91-XXXXXXXXXX",
               areaServed: "IN",
-              priceRange: "$$",
+              priceRange: "$",
               foundingDate: "2020",
             }),
           }}

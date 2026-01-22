@@ -5,125 +5,73 @@ import { useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import {
-  ArrowRight,
-  Building2,
-  Landmark,
-  Home,
-  GraduationCap,
-  Truck,
-  TrendingUp,
-  Store,
-  Factory,
-  HardHat,
-  Hotel,
-} from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import { Carousel3D } from "@/components/ui/carousel-3d"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const loanCategories = [
+const services = [
   {
-    slug: "business-loans",
-    icon: Building2,
     title: "Business Loans",
-    shortDesc: "Funding for your business growth",
-    description:
-      "Comprehensive financing for MSME, SME, companies, shops, retail stores, and commercial enterprises. Working capital, expansion loans, and more.",
-    subTypes: [
-      { icon: Store, label: "MSME & SME Loans" },
-      { icon: Building2, label: "Corporate Financing" },
-      { icon: Factory, label: "Shops & Retail" },
-    ],
+    button: "Learn More",
+    src: "/assets/business-loans.png",
+    description: "Comprehensive financing for MSME, SME, companies, shops, retail stores, and commercial enterprises",
+    href: "/services/business-loans",
+    loanAmount: "₹10L - ₹500Cr",
+    interestRate: "9.5% - 14% p.a.",
+    tenure: "Up to 15 years",
+    features: ["Working Capital", "Business Expansion", "Equipment Purchase", "Inventory Funding"]
   },
   {
-    slug: "project-loans",
-    icon: Landmark,
     title: "Project Loans",
-    shortDesc: "Construction & development financing",
-    description:
-      "Site purchase loans, flat purchase loans, construction financing, resort development, commercial building, and business infrastructure setup loans.",
-    subTypes: [
-      { icon: HardHat, label: "Site & Flat Purchase" },
-      { icon: Landmark, label: "Construction Loans" },
-      { icon: Hotel, label: "Resort & Commercial Setup" },
-    ],
+    button: "Learn More",
+    src: "/assets/project-loans.png",
+    description: "Site purchase, flat purchase, construction, resort development, and business infrastructure financing",
+    href: "/services/project-loans",
+    loanAmount: "₹25L - ₹1000Cr",
+    interestRate: "10% - 15% p.a.",
+    tenure: "Up to 20 years",
+    features: ["Site Purchase", "Construction Finance", "Resort Development", "Commercial Projects"]
   },
   {
-    slug: "housing-loans",
-    icon: Home,
     title: "Housing Loans",
-    shortDesc: "Your dream home affordable",
-    description:
-      "Make homeownership dreams a reality with flexible housing loan solutions. Home purchases, property improvements, and refinancing options.",
-    subTypes: [
-      { icon: Home, label: "Home Purchase" },
-      { icon: Home, label: "Renovation" },
-      { icon: Home, label: "Balance Transfer" },
-    ],
+    button: "Learn More",
+    src: "/assets/housing-loans.png",
+    description: "Your dream home made affordable with flexible financing and competitive interest rates",
+    href: "/services/housing-loans",
+    loanAmount: "₹5L - ₹10Cr",
+    interestRate: "8.5% - 12% p.a.",
+    tenure: "Up to 30 years",
+    features: ["Home Purchase", "Home Construction", "Renovation", "Balance Transfer"]
   },
   {
-    slug: "education-loans",
-    icon: GraduationCap,
     title: "Education Loans",
-    shortDesc: "Invest in your future",
-    description:
-      "Pursue higher education without financial stress. Covers tuition fees, accommodation, books, and living expenses for domestic and international studies.",
-    subTypes: [
-      { icon: GraduationCap, label: "Domestic Studies" },
-      { icon: GraduationCap, label: "International" },
-      { icon: GraduationCap, label: "Professional Courses" },
-    ],
+    button: "Learn More",
+    src: "/assets/education-loans.png",
+    description: "Hassle-free education financing for domestic and international academic aspirations",
+    href: "/services/education-loans",
+    loanAmount: "₹50K - ₹1.5Cr",
+    interestRate: "9% - 13.5% p.a.",
+    tenure: "Up to 15 years",
+    features: ["Domestic Studies", "International Education", "Professional Courses", "Living Expenses"]
   },
   {
-    slug: "machinery-loans",
-    icon: Truck,
-    title: "Machinery & Equipment Loans",
-    shortDesc: "Upgrade your assets",
-    description:
-      "Finance industrial machinery, agricultural equipment, commercial vehicles, and inventory. Equipment-specific financing solutions for growth.",
-    subTypes: [
-      { icon: Truck, label: "Industrial Machinery" },
-      { icon: Truck, label: "Equipment" },
-      { icon: Truck, label: "Inventory Funding" },
-    ],
-  },
-  {
-    slug: "restructuring",
-    icon: TrendingUp,
-    title: "Loan Restructuring",
-    shortDesc: "Fix existing loan challenges",
-    description:
-      "Facing loan issues, NPA cases, or rejections? We restructure loans, improve credit scores, and resolve banking problems through expert negotiations.",
-    subTypes: [
-      { icon: TrendingUp, label: "NPA Resolution" },
-      { icon: TrendingUp, label: "Credit Improvement" },
-      { icon: TrendingUp, label: "Debt Consolidation" },
-    ],
+    title: "Machinery & Equipment",
+    button: "Learn More",
+    src: "/assets/machinery-loans.png",
+    description: "Industrial machinery, agricultural equipment, commercial vehicles, and inventory financing",
+    href: "/services/machinery-loans",
+    loanAmount: "₹5L - ₹100Cr",
+    interestRate: "10% - 16% p.a.",
+    tenure: "Up to 10 years",
+    features: ["Industrial Machinery", "Agricultural Equipment", "Commercial Vehicles", "Technology Upgrades"]
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-}
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
-}
-
 export default function Services() {
   const heroRef = useRef<HTMLElement>(null)
-  const cardsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -139,119 +87,221 @@ export default function Services() {
           ease: "power3.out",
         },
       )
-
-      // Cards scroll animation
-      gsap.fromTo(
-        cardsRef.current?.querySelectorAll(".service-card"),
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      )
     })
 
     return () => ctx.revert()
   }, [])
 
   return (
-    <main className="bg-background">
-      {/* Hero Section */}
-      <section ref={heroRef} className="py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-72 h-72 bg-accent/10 rounded-full blur-3xl" />
+    <main>
+      {/* Hero Section - Bright */}
+      <section ref={heroRef} className="py-20 md:py-28 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-20 right-20 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-20 w-72 h-72 bg-blue-100/50 rounded-full blur-3xl" />
+        </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <span className="hero-animate inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4 bg-primary/10 px-4 py-2 rounded-full">
-            Our Services
-          </span>
-          <h1 className="hero-animate text-4xl md:text-6xl font-bold mb-6 tracking-tight text-foreground">
-            Our Loan Products & Services
-          </h1>
-          <p className="hero-animate text-xl text-muted-foreground max-w-3xl leading-relaxed">
-            Complete financing solutions tailored to your unique needs. Whether you're growing a business, buying a
-            home, pursuing education, or upgrading equipment — we have the perfect loan solution for you.
-          </p>
+          <div className="text-center max-w-4xl mx-auto">
+            <span className="hero-animate inline-block text-accent font-semibold text-sm tracking-wider uppercase mb-4 bg-accent/10 px-4 py-2 rounded-full">
+              Our Services
+            </span>
+            <h1 className="hero-animate text-4xl md:text-6xl font-bold mb-6 tracking-tight text-gray-900">
+              Our Loan Products & Services
+            </h1>
+            <p className="hero-animate text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Complete financing solutions tailored to your unique needs. Whether you're growing a business, buying a
+              home, pursuing education, or upgrading equipment — we have the perfect loan solution for you.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-16 md:py-24">
+      {/* 3D Carousel Section - Dark */}
+      <section className="py-16 md:py-24 bg-black relative overflow-hidden">
+        {/* Background Image Layer - Same as Service Section */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/assets/service-bg.png')" }}
+        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-12 md:mb-16">
+            <div className="flex items-center justify-center gap-2 md:gap-4 mb-3 md:mb-4">
+              <div className="h-px w-4 sm:w-16 bg-white/30" />
+              <div className="w-1 h-1 md:w-2 md:h-2 rounded-full bg-white/60" />
+              <span className="text-white/80 font-medium text-[9px] md:text-xs tracking-widest uppercase">Explore Our Services</span>
+              <div className="w-1 h-1 md:w-2 md:h-2 rounded-full bg-white/60" />
+              <div className="h-px w-4 sm:w-16 bg-white/30" />
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4 leading-tight">
+              Interactive <span className="text-accent italic">Service Showcase</span>
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+              Click on any service to explore detailed information and find the perfect financing solution
+            </p>
+          </div>
+
+          {/* 3D Carousel */}
+          <div className="py-8 md:py-12">
+            <Carousel3D slides={services} showDetails={true} />
+          </div>
+        </div>
+      </section>
+
+      {/* Detailed Service Cards - Bright */}
+      <section className="py-20 md:py-28 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            ref={cardsRef}
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-          >
-            {loanCategories.map((service) => {
-              const Icon = service.icon
-              return (
-                <motion.div key={service.slug} variants={cardVariants} className="service-card">
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="group relative block p-8 bg-card border border-border rounded-2xl hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 overflow-hidden h-full"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Loan Details & Features</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Comprehensive information about our loan products to help you make informed decisions
+            </p>
+          </div>
 
-                    <div className="relative">
-                      <div className="mb-6 inline-flex p-4 bg-primary/10 rounded-2xl group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                        <Icon className="text-primary" size={28} />
-                      </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white p-6 md:p-8 rounded-2xl border border-gray-200 hover:border-accent/50 hover:shadow-xl transition-all duration-300 group"
+              >
+                <h3 className="text-xl font-bold mb-4 text-gray-900 group-hover:text-accent transition-colors">
+                  {service.title}
+                </h3>
+                
+                {/* Loan Details */}
+                <div className="space-y-3 mb-6">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm text-gray-600">Loan Amount</span>
+                    <span className="text-sm font-semibold text-gray-900">{service.loanAmount}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm text-gray-600">Interest Rate</span>
+                    <span className="text-sm font-semibold text-accent">{service.interestRate}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm text-gray-600">Tenure</span>
+                    <span className="text-sm font-semibold text-gray-900">{service.tenure}</span>
+                  </div>
+                </div>
 
-                      <h2 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
-                        {service.title}
-                      </h2>
-                      <p className="text-sm text-primary/80 font-medium mb-3">{service.shortDesc}</p>
-                      <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{service.description}</p>
+                {/* Features */}
+                <div className="mb-6">
+                  <h4 className="text-sm font-semibold text-gray-900 mb-3">Key Features:</h4>
+                  <ul className="space-y-2">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 flex-shrink-0"></span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                      {/* Sub-types */}
-                      <div className="space-y-2 mb-6">
-                        {service.subTypes.map((sub, idx) => {
-                          const SubIcon = sub.icon
-                          return (
-                            <div key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <SubIcon size={14} className="text-primary/60" />
-                              <span>{sub.label}</span>
-                            </div>
-                          )
-                        })}
-                      </div>
-
-                      <div className="flex items-center text-primary font-semibold text-sm group-hover:gap-3 gap-2 transition-all duration-300">
-                        Learn More <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              )
-            })}
-          </motion.div>
+                {/* CTA Button */}
+                <Link
+                  href={service.href}
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-gray-50 text-gray-900 rounded-xl font-semibold hover:bg-accent hover:text-black transition-all duration-300 group-hover:bg-accent group-hover:text-black"
+                >
+                  View Details
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 md:py-28 bg-primary/5">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Features Section - Bright */}
+      <section className="py-20 md:py-28 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Why Choose Our Services?</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We provide comprehensive financial solutions backed by expertise and strong banking relationships
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0 }}
+              className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-accent/50 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
+                <span className="text-2xl">🏦</span>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">50+ Bank Partners</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Strong relationships with leading banks ensure competitive rates and faster approvals
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-accent/50 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
+                <span className="text-2xl">⚡</span>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">Quick Processing</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Streamlined documentation and efficient processing for faster loan disbursement
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-accent/50 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
+                <span className="text-2xl">🎯</span>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">Personalized Solutions</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Tailored loan structures designed to match your specific financial requirements
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section - Dark */}
+      <section className="py-20 md:py-28 bg-black relative overflow-hidden">
+        {/* Background Image Layer */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/assets/service-bg.png')" }}
+        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">Not Sure Which Loan You Need?</h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Not Sure Which Loan You Need?</h2>
+            <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
               Our experts will analyze your requirements and recommend the best financing solution. Get a free
               consultation today.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:opacity-90 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-black rounded-xl font-semibold hover:bg-accent/90 transition-all duration-300 hover:shadow-xl"
             >
               Book Free Consultation
               <ArrowRight size={18} />
