@@ -9,123 +9,93 @@ const SQRT_5000 = Math.sqrt(5000);
 const testimonials = [
     {
         tempId: 0,
-        testimonial: "My favorite solution in the market. We work 5x faster with Capital Core.",
-        by: "Alex, CEO at TechCorp",
-        imgSrc: "https://i.pravatar.cc/150?img=1"
+        testimonial: "Capital Core Finance made my home loan process incredibly smooth. The team guided me through every step and I got approval within 10 days. Highly recommended!",
+        by: "Rajesh Kumar, Bangalore",
+        imgSrc: "https://i.pravatar.cc/150?img=12"
     },
     {
         tempId: 1,
-        testimonial: "I'm confident my data is safe with Capital Core. I can't say that about other providers.",
-        by: "Dan, CTO at SecureNet",
-        imgSrc: "https://i.pravatar.cc/150?img=2"
-    },
-    {
-        tempId: 2,
-        testimonial: "I know it's cliche, but we were lost before we found Capital Core. Can't thank you guys enough!",
-        by: "Stephanie, COO at InnovateCo",
-        imgSrc: "https://i.pravatar.cc/150?img=3"
-    },
-    {
-        tempId: 3,
-        testimonial: "Capital Core's products make planning for the future seamless. Can't recommend them enough!",
-        by: "Marie, CFO at FuturePlanning",
-        imgSrc: "https://i.pravatar.cc/150?img=4"
-    },
-    {
-        tempId: 4,
-        testimonial: "If I could give 11 stars, I'd give 12.",
-        by: "Andre, Head of Design at CreativeSolutions",
+        testimonial: "I was worried about getting a business loan for my startup, but Capital Core Finance believed in my vision. Their interest rates are competitive and the process was transparent.",
+        by: "Priya Sharma, Mumbai",
         imgSrc: "https://i.pravatar.cc/150?img=5"
     },
     {
+        tempId: 2,
+        testimonial: "Best decision to choose Capital Core for my personal loan. No hidden charges, quick disbursal, and excellent customer support. Thank you team!",
+        by: "Amit Patel, Ahmedabad",
+        imgSrc: "https://i.pravatar.cc/150?img=13"
+    },
+    {
+        tempId: 3,
+        testimonial: "The home loan EMI calculator on their website helped me plan my finances perfectly. Got my dream home loan at the best rates. Very satisfied customer!",
+        by: "Sneha Reddy, Hyderabad",
+        imgSrc: "https://i.pravatar.cc/150?img=9"
+    },
+    {
+        tempId: 4,
+        testimonial: "Capital Core Finance helped me consolidate my debts with a single loan at lower interest. My financial stress has reduced significantly. Grateful for their support!",
+        by: "Vikram Singh, Delhi",
+        imgSrc: "https://i.pravatar.cc/150?img=14"
+    },
+    {
         tempId: 5,
-        testimonial: "SO SO SO HAPPY WE FOUND YOU GUYS!!!! I'd bet you've saved me 100 hours so far.",
-        by: "Jeremy, Product Manager at TimeWise",
-        imgSrc: "https://i.pravatar.cc/150?img=6"
+        testimonial: "I needed urgent funds for my daughter's education. Capital Core processed my education loan in just 5 days. Professional and caring team!",
+        by: "Meena Iyer, Chennai",
+        imgSrc: "https://i.pravatar.cc/150?img=10"
     },
     {
         tempId: 6,
-        testimonial: "Took some convincing, but now that we're on Capital Core, we're never going back.",
-        by: "Pam, Marketing Director at BrandBuilders",
-        imgSrc: "https://i.pravatar.cc/150?img=7"
+        testimonial: "As a first-time home buyer, I was nervous about the loan process. Capital Core's team explained everything clearly and made it hassle-free. Excellent service!",
+        by: "Arjun Nair, Kochi",
+        imgSrc: "https://i.pravatar.cc/150?img=15"
     },
     {
         tempId: 7,
-        testimonial: "I would be lost without Capital Core's in-depth analytics. The ROI is EASILY 100X for us.",
-        by: "Daniel, Data Scientist at AnalyticsPro",
+        testimonial: "Got my vehicle loan approved in record time! The documentation was minimal and the interest rate was better than other banks. Very happy with Capital Core!",
+        by: "Kavita Desai, Pune",
         imgSrc: "https://i.pravatar.cc/150?img=8"
     },
     {
         tempId: 8,
-        testimonial: "It's just the best. Period.",
-        by: "Fernando, UX Designer at UserFirst",
-        imgSrc: "https://i.pravatar.cc/150?img=9"
-    },
-    {
-        tempId: 9,
-        testimonial: "I switched 5 years ago and never looked back.",
-        by: "Andy, DevOps Engineer at CloudMasters",
-        imgSrc: "https://i.pravatar.cc/150?img=10"
-    },
-    {
-        tempId: 10,
-        testimonial: "I've been searching for a solution like Capital Core for YEARS. So glad I finally found one!",
-        by: "Pete, Sales Director at RevenueRockets",
-        imgSrc: "https://i.pravatar.cc/150?img=11"
-    },
-    {
-        tempId: 11,
-        testimonial: "It's so simple and intuitive, we got the team up to speed in 10 minutes.",
-        by: "Marina, HR Manager at TalentForge",
-        imgSrc: "https://i.pravatar.cc/150?img=12"
-    },
-    {
-        tempId: 12,
-        testimonial: "Capital Core's customer support is unparalleled. They're always there when we need them.",
-        by: "Olivia, Customer Success Manager at ClientCare",
-        imgSrc: "https://i.pravatar.cc/150?img=13"
-    },
-    {
-        tempId: 13,
-        testimonial: "The efficiency gains we've seen since implementing Capital Core are off the charts!",
-        by: "Raj, Operations Manager at StreamlineSolutions",
-        imgSrc: "https://i.pravatar.cc/150?img=14"
-    },
-    {
-        tempId: 14,
-        testimonial: "Capital Core has revolutionized how we handle our workflow. It's a game-changer!",
-        by: "Lila, Workflow Specialist at ProcessPro",
-        imgSrc: "https://i.pravatar.cc/150?img=15"
-    },
-    {
-        tempId: 15,
-        testimonial: "The scalability of Capital Core's solution is impressive. It grows with our business seamlessly.",
-        by: "Trevor, Scaling Officer at GrowthGurus",
+        testimonial: "Capital Core Finance understood my business needs and offered a customized loan solution. Their flexibility and support helped me expand my business successfully.",
+        by: "Suresh Gupta, Jaipur",
         imgSrc: "https://i.pravatar.cc/150?img=16"
     },
     {
-        tempId: 16,
-        testimonial: "I appreciate how Capital Core continually innovates. They're always one step ahead.",
-        by: "Naomi, Innovation Lead at FutureTech",
+        tempId: 9,
+        testimonial: "The entire loan process was digital and paperless. I could track my application status online. Modern banking at its best! Thank you Capital Core!",
+        by: "Anjali Mehta, Surat",
+        imgSrc: "https://i.pravatar.cc/150?img=11"
+    },
+    {
+        tempId: 10,
+        testimonial: "I refinanced my existing home loan with Capital Core and saved lakhs in interest. Their team did all the hard work. Highly professional service!",
+        by: "Karthik Krishnan, Coimbatore",
         imgSrc: "https://i.pravatar.cc/150?img=17"
     },
     {
-        tempId: 17,
-        testimonial: "The ROI we've seen with Capital Core is incredible. It's paid for itself many times over.",
-        by: "Victor, Finance Analyst at ProfitPeak",
+        tempId: 11,
+        testimonial: "Capital Core gave me a personal loan when other banks rejected my application. They looked beyond my credit score and understood my situation. Forever grateful!",
+        by: "Deepak Rao, Mangalore",
         imgSrc: "https://i.pravatar.cc/150?img=18"
     },
     {
-        tempId: 18,
-        testimonial: "Capital Core's platform is so robust, yet easy to use. It's the perfect balance.",
-        by: "Yuki, Tech Lead at BalancedTech",
+        tempId: 12,
+        testimonial: "The best part about Capital Core is their post-loan support. Any query I have, they respond immediately. True customer-first approach!",
+        by: "Pooja Agarwal, Indore",
+        imgSrc: "https://i.pravatar.cc/150?img=7"
+    },
+    {
+        tempId: 13,
+        testimonial: "I got my loan sanctioned even with a moderate credit score. Capital Core's team worked with me to improve my eligibility. They really care about their customers!",
+        by: "Ramesh Pillai, Trivandrum",
         imgSrc: "https://i.pravatar.cc/150?img=19"
     },
     {
-        tempId: 19,
-        testimonial: "We've tried many solutions, but Capital Core stands out in terms of reliability and performance.",
-        by: "Zoe, Performance Manager at ReliableSystems",
-        imgSrc: "https://i.pravatar.cc/150?img=20"
+        tempId: 14,
+        testimonial: "From application to disbursal, everything was smooth and transparent. No last-minute surprises. Capital Core Finance has earned my trust and recommendation!",
+        by: "Nisha Kapoor, Chandigarh",
+        imgSrc: "https://i.pravatar.cc/150?img=6"
     }
 ];
 
