@@ -9,93 +9,93 @@ const SQRT_5000 = Math.sqrt(5000);
 const testimonials = [
     {
         tempId: 0,
-        testimonial: "Capital Core Finance made my home loan process incredibly smooth. The team guided me through every step and I got approval within 10 days. Highly recommended!",
+        testimonial: "Capital Core Finance made my home loan process incredibly smooth 🏡 The team guided me through every step and I got approval within 10 days ⚡ Highly recommended!",
         by: "Rajesh Kumar, Bangalore",
-        imgSrc: "https://i.pravatar.cc/150?img=12"
+        emoji: "👨‍💼"
     },
     {
         tempId: 1,
-        testimonial: "I was worried about getting a business loan for my startup, but Capital Core Finance believed in my vision. Their interest rates are competitive and the process was transparent.",
+        testimonial: "I was worried about getting a business loan for my startup 💼 but Capital Core Finance believed in my vision. Their interest rates are competitive and the process was transparent ✨",
         by: "Priya Sharma, Mumbai",
-        imgSrc: "https://i.pravatar.cc/150?img=5"
+        emoji: "👩‍💼"
     },
     {
         tempId: 2,
-        testimonial: "Best decision to choose Capital Core for my personal loan. No hidden charges, quick disbursal, and excellent customer support. Thank you team!",
+        testimonial: "Best decision to choose Capital Core for my personal loan 💰 No hidden charges, quick disbursal, and excellent customer support. Thank you team! 🙏",
         by: "Amit Patel, Ahmedabad",
-        imgSrc: "https://i.pravatar.cc/150?img=13"
+        emoji: "🧑‍💻"
     },
     {
         tempId: 3,
-        testimonial: "The home loan EMI calculator on their website helped me plan my finances perfectly. Got my dream home loan at the best rates. Very satisfied customer!",
+        testimonial: "The home loan EMI calculator on their website helped me plan my finances perfectly 📊 Got my dream home loan at the best rates. Very satisfied customer! 😊",
         by: "Sneha Reddy, Hyderabad",
-        imgSrc: "https://i.pravatar.cc/150?img=9"
+        emoji: "👩"
     },
     {
         tempId: 4,
-        testimonial: "Capital Core Finance helped me consolidate my debts with a single loan at lower interest. My financial stress has reduced significantly. Grateful for their support!",
+        testimonial: "Capital Core Finance helped me consolidate my debts with a single loan at lower interest 📉 My financial stress has reduced significantly. Grateful for their support! 🙌",
         by: "Vikram Singh, Delhi",
-        imgSrc: "https://i.pravatar.cc/150?img=14"
+        emoji: "👨"
     },
     {
         tempId: 5,
-        testimonial: "I needed urgent funds for my daughter's education. Capital Core processed my education loan in just 5 days. Professional and caring team!",
+        testimonial: "I needed urgent funds for my daughter's education 🎓 Capital Core processed my education loan in just 5 days. Professional and caring team! ❤️",
         by: "Meena Iyer, Chennai",
-        imgSrc: "https://i.pravatar.cc/150?img=10"
+        emoji: "👩‍🏫"
     },
     {
         tempId: 6,
-        testimonial: "As a first-time home buyer, I was nervous about the loan process. Capital Core's team explained everything clearly and made it hassle-free. Excellent service!",
+        testimonial: "As a first-time home buyer, I was nervous about the loan process 😰 Capital Core's team explained everything clearly and made it hassle-free. Excellent service! ⭐",
         by: "Arjun Nair, Kochi",
-        imgSrc: "https://i.pravatar.cc/150?img=15"
+        emoji: "🧑"
     },
     {
         tempId: 7,
-        testimonial: "Got my vehicle loan approved in record time! The documentation was minimal and the interest rate was better than other banks. Very happy with Capital Core!",
+        testimonial: "Got my vehicle loan approved in record time! 🚗 The documentation was minimal and the interest rate was better than other banks. Very happy with Capital Core! 🎉",
         by: "Kavita Desai, Pune",
-        imgSrc: "https://i.pravatar.cc/150?img=8"
+        emoji: "👩‍🔧"
     },
     {
         tempId: 8,
-        testimonial: "Capital Core Finance understood my business needs and offered a customized loan solution. Their flexibility and support helped me expand my business successfully.",
+        testimonial: "Capital Core Finance understood my business needs and offered a customized loan solution 📈 Their flexibility and support helped me expand my business successfully 🚀",
         by: "Suresh Gupta, Jaipur",
-        imgSrc: "https://i.pravatar.cc/150?img=16"
+        emoji: "👨‍💼"
     },
     {
         tempId: 9,
-        testimonial: "The entire loan process was digital and paperless. I could track my application status online. Modern banking at its best! Thank you Capital Core!",
+        testimonial: "The entire loan process was digital and paperless 📱 I could track my application status online. Modern banking at its best! Thank you Capital Core! 💯",
         by: "Anjali Mehta, Surat",
-        imgSrc: "https://i.pravatar.cc/150?img=11"
+        emoji: "👩‍💻"
     },
     {
         tempId: 10,
-        testimonial: "I refinanced my existing home loan with Capital Core and saved lakhs in interest. Their team did all the hard work. Highly professional service!",
+        testimonial: "I refinanced my existing home loan with Capital Core and saved lakhs in interest 💸 Their team did all the hard work. Highly professional service! 👏",
         by: "Karthik Krishnan, Coimbatore",
-        imgSrc: "https://i.pravatar.cc/150?img=17"
+        emoji: "🧑‍💼"
     },
     {
         tempId: 11,
-        testimonial: "Capital Core gave me a personal loan when other banks rejected my application. They looked beyond my credit score and understood my situation. Forever grateful!",
+        testimonial: "Capital Core gave me a personal loan when other banks rejected my application 🙏 They looked beyond my credit score and understood my situation. Forever grateful! 💚",
         by: "Deepak Rao, Mangalore",
-        imgSrc: "https://i.pravatar.cc/150?img=18"
+        emoji: "👨‍🦱"
     },
     {
         tempId: 12,
-        testimonial: "The best part about Capital Core is their post-loan support. Any query I have, they respond immediately. True customer-first approach!",
+        testimonial: "The best part about Capital Core is their post-loan support 📞 Any query I have, they respond immediately. True customer-first approach! 🌟",
         by: "Pooja Agarwal, Indore",
-        imgSrc: "https://i.pravatar.cc/150?img=7"
+        emoji: "👩‍🦰"
     },
     {
         tempId: 13,
-        testimonial: "I got my loan sanctioned even with a moderate credit score. Capital Core's team worked with me to improve my eligibility. They really care about their customers!",
+        testimonial: "I got my loan sanctioned even with a moderate credit score 📊 Capital Core's team worked with me to improve my eligibility. They really care about their customers! 💙",
         by: "Ramesh Pillai, Trivandrum",
-        imgSrc: "https://i.pravatar.cc/150?img=19"
+        emoji: "👴"
     },
     {
         tempId: 14,
-        testimonial: "From application to disbursal, everything was smooth and transparent. No last-minute surprises. Capital Core Finance has earned my trust and recommendation!",
+        testimonial: "From application to disbursal, everything was smooth and transparent ✅ No last-minute surprises. Capital Core Finance has earned my trust and recommendation! 🏆",
         by: "Nisha Kapoor, Chandigarh",
-        imgSrc: "https://i.pravatar.cc/150?img=6"
+        emoji: "👩‍🎓"
     }
 ];
 
@@ -145,14 +145,14 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
                     height: 2
                 }}
             />
-            <img
-                src={testimonial.imgSrc}
-                alt={`${testimonial.by.split(',')[0]}`}
-                className="mb-4 h-14 w-12 bg-muted object-cover object-top"
+            <div
+                className="mb-4 h-14 w-14 flex items-center justify-center text-4xl bg-muted/30 rounded-lg"
                 style={{
                     boxShadow: "3px 3px 0px hsl(var(--background))"
                 }}
-            />
+            >
+                {testimonial.emoji}
+            </div>
             <h3 className={cn(
                 "text-base sm:text-xl font-medium",
                 isCenter ? "text-primary-foreground" : "text-foreground"
